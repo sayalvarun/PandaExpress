@@ -1,0 +1,52 @@
+html, body{
+
+	font-family: Georgia;
+}
+
+body{
+	background: url('images/Mocha Grunge.png');
+	/*border-top:solid #74927C;*/
+}
+
+h1{
+	color: #FFFFFF;
+}
+
+.topBar{
+	width: 110.5%;
+	height: 10%;
+	margin-left: -10%;
+	margin-top: -5%;
+	background-color: #AFC1CC;
+	padding: 0px;
+
+}
+
+#companyName{
+	margin-top: .2%;
+}
+
+.searchAreaBorder{
+	width: 110.5%;
+	height: 60%;
+	margin-left: -1%;
+	margin-top: 2%;
+	background-color: #000000;
+
+}
+
+.searchArea{
+	float: left;
+	height: 95%;
+	width: 90%;
+	margin-left: 1.2%;
+	margin-top: .7%;
+	background-color: #FFFFFF;
+	border-radius: 15px;
+
+}
+
+#bottomSection{
+	height = 200%;
+	
+}

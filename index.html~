@@ -1,0 +1,28 @@
+<html>
+	<head>
+		<title> Welcome to Panda Express! </title>
+		<link rel="stylesheet" type="text/css" href="styles/index.css">
+	</head>
+
+	<body>
+		<div class= "topBar">
+		</div>
+		<div id="header">
+			<h1 id="companyName"> Panda Express </h1>
+		</div>
+
+		<div class = "searchAreaBorder">
+			<div class = searchArea>
+				<p>Here goes the form</p>
+			</div>
+		</div>
+
+			<br></br><br></br><br></br><br></br><br></br><br>blah</br>
+		<!--
+			<div id="navBar">
+				<p> This will be the navigation area</p>
+			</div>
+		-->
+		
+	</body>
+</html>
