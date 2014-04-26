@@ -79,7 +79,12 @@ h1{
 	margin-left: 40%;
 }
 
-form {
+.searchElements{
+	float: left;
+}
+
+
+#loginForm{
     margin: 0 auto;
     margin-top: 20px;
 }
@@ -104,12 +109,12 @@ p a {
 p a:hover {
     color: #555;
 }
-input {
+#loginForm input {
     font-family: "Helvetica Neue", Helvetica, sans-serif;
     font-size: 12px;
     outline: none;
 }
-input[type=text],
+#loginForm input[type=text],
 input[type=password] {
     color: #777;
     padding-left: 10px;

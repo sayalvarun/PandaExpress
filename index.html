@@ -1,6 +1,19 @@
 <html>
-	<head>
+	<head lang="en">
 		<title> Welcome to Panda Express! </title>
+		
+		<meta charset="utf-8">
+		<title>jQuery UI Datepicker - Default functionality</title>
+		<link rel="stylesheet" href="//code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css">
+		<script src="//code.jquery.com/jquery-1.10.2.js"></script>
+		<script src="//code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+		<link rel="stylesheet" href="/resources/demos/style.css">
+		<script>
+			$(function() {
+			$( "#datepicker" ).datepicker();
+			});
+		</script>
+		
 		<link rel="stylesheet" type="text/css" href="styles/index.css">
 	</head>
 
@@ -12,12 +25,25 @@
 		</div>
 
 		<div class = "searchAreaBorder">
-			<div class = searchArea>
-				<p>Here goes the form</p>
-
+			<div class = "searchArea">
+				<div class = "searchElements">
+					<p>Search for flight:</p>
+					<form>
+						<input type="radio" name="flightType" value="OneWay">One Way
+						<input type="radio" name="flightType" value="Roundtrip">Round Trip
+						<input type="radio" name="flightType" value="MultiCity">Multi City
+					</form>
+					<form>
+						FLying From: <input type="text" name="Departure">
+						Last name: <input type="text" name="Arrival"><br>
+						<input type="submit" value="Search">
+					</form>
+					<br>
+					<form>Date: <input type="text" id="datepicker"></form>
+				</div>
 				<div id="container">  
 					<div id="containerHead"><h3>Login</h3></div>     
-					<form>
+					<form id = "loginForm">
 						<label for="username">Username:</label>
 						<input type="text" id="username" name="username">
 						<label for="password">Password:</label>
@@ -26,8 +52,9 @@
 							<input type="checkbox"><label for="checkbox">Keep me logged in</label>
 							<input type="submit" value="Login">
 						</div><!--/ lower-->
-					</form>
-		</div>
+					</form>
+				</div>
+				
 			</div>
 		</div>
 
