@@ -64,7 +64,7 @@ h1{
 	
 	width: 340px;
 	height: 280px;
-	margin-top: 0px;
+	margin-top: 10px;
 	margin-left: 64%;
 		background: #fff;
     
@@ -81,6 +81,7 @@ h1{
 
 .searchElements{
 	float: left;
+	margin-left: 5px;
 }
 
 /*******************************/
@@ -117,7 +118,7 @@ p a:hover {
 }
 
 #loginForm input[type=text],
-input[type=password] {
+#loginForm input[type=password] {
     color: #777;
     padding-left: 10px;
     margin: 10px;
@@ -136,13 +137,13 @@ input[type=password] {
 }
 
 #loginForm input[type=text]:hover,
-input[type=password]:hover {
+#loginForm input[type=password]:hover {
     border: 1px solid #b6bfc0;
     box-shadow: inset 0 1.5px 3px rgba(190, 190, 190, .7), 0 0 0 5px #f5f7f8;
 }
 
 #loginForm input[type=text]:focus,
-input[type=password]:focus {
+#loginForm input[type=password]:focus {
     border: 1px solid #a8c9e4;
     box-shadow: inset 0 1.5px 3px rgba(190, 190, 190, .4), 0 0 0 5px #e6f2f9;
 }
@@ -152,7 +153,15 @@ input[type=password]:focus {
     width: 100%;
     height: 69px;
     margin-top: 20px;
+	
+	margin-left: -1px;
+	border-radius: 3px;
+    	border: 1px solid #ccc;
+    	box-shadow: 0 1px 2px rgba(0, 0, 0, .1);
+		border-top: 1px solid #FFFFFF;
+		
 }
+#lower span {color : #000000; margin-left:5px;}
 input[type=checkbox] {
     margin-left: 20px;
     margin-top: 30px;
