@@ -3,6 +3,7 @@
 	<head>
 		<title>Registration</title>
 		<link rel="stylesheet" type="text/css" href="../styles/index.css">
+		<link rel="stylesheet" type="text/css" href="../styles/search.css">
 		<style type="text/css">
 			label{color:#FFFFFF;}
 			input[type=submit]{float:left; margin-left:50px;}
@@ -10,9 +11,9 @@
 		</style>
 		<?php
 			// define variables and set to empty values
-			
+			$con;
 			$fnameErr = $lnameErr = $addrErr = $cityErr = $stateErr = $zipErr = $unameErr = $pwordErr = "";
-			$fname = $lname = $addr = $city = $state = $zip = $credit = $email = $uname = $pword = "";
+			$fname = $lname = $addr = $city = $state = $zip = $credit = $email = $uname = $pword = NULL;
 			if ($_SERVER["REQUEST_METHOD"] == "POST")
 			{
 				$fname = $_POST["fname"];
@@ -26,21 +27,16 @@
 				$uname = $_POST["uname"];
 				$pword = $_POST["pword"];
 			}
-			function checkFields()
+			
+			function checkForEmptyFields()
 			{
 				global $fnameErr, $lnameErr, $addrErr, $cityErr, $stateErr, $zipErr, $unameErr, $pwordErr;
 				if ($_SERVER["REQUEST_METHOD"] == "POST")
 				{
 					if (empty($_POST["fname"]))
 						$fnameErr = "First name is required.";
-					else
-						$fname = $_POST["fname"];
-						
 					if (empty($_POST["lname"]))
-						$lnameErr = "Last name is required.";
-					else
-						$lname = $_POST["lname"];
-						
+						$lnameErr = "Last name is required.";						
 					if (empty($_POST["addr"]))
 						$addrErr = "Address is required.";
 					if (empty($_POST["city"]))
@@ -50,15 +46,65 @@
 					if (empty($_POST["zip"]))
 						$zipErr = "Zipcode is required.";
 					if (empty($_POST["uname"]))
-						$unameErr = "Username is required.";
-					//else 
-					//	$uname = test_input($_POST["uname"]);
-				  
+						$unameErr = "Username is required.";				  
 					if (empty($_POST["pword"]))
 						$pwordErr = "Password is required.";
-					//else 
-					//	$pword = test_input($_POST["pword"]);
 				}
+			}
+			
+			function canRegister()
+			{
+				global $fnameErr, $lnameErr, $addrErr, $cityErr, $stateErr, $zipErr, $unameErr, $pwordErr;
+				if($fnameErr == "" && $lnameErr == "" && $addrErr == "" && $cityErr == "" && $stateErr == "" && $zipErr == "" && $unameErr == "" && $pwordErr == "")
+					return true;
+				return false;
+			}
+			
+			function connectToDB()
+			{
+				global $con;
+				// Create connection
+				$con=mysqli_connect("localhost","root","","pandaexpress");
+
+				// Check connection
+				if (mysqli_connect_errno()) {
+				  echo "Failed to connect to MySQL: " . mysqli_connect_error();
+				}
+				
+			}
+			
+			function register()
+			{
+				if(canRegister())
+				{
+					connectToDB();
+					return insertPerson();
+					//insertCustomer();
+				}
+			}
+			
+			function insertPerson()
+			{
+				global $con, $fname, $lname, $addr, $city, $state, $zip;
+				$query = "INSERT INTO Person (ID, FirstName, LastName, Address, City, State, ZipCode) VALUES (".generateID().", '".$fname."', '".$lname."', '".$addr."', '".$city."', '".$state."', ".$zip.");";
+				//$query = "INSERT INTO PERSON (".generateID().", \"".$fname."\", \"".$lname."\", \"".$addr."\", \"".$city."\", \"".$state."\", ".$zip.");";
+				mysqli_query($con, $query);
+				mysqli_close($con);
+
+				return $query;
+			}
+			
+			function generateID()
+			{
+				global $con;
+				$result = mysqli_query($con,"SELECT COUNT(*) FROM Person;");
+				if (!$result) 
+				{
+					printf("Error: %s\n", mysqli_error($con));
+					exit();
+				}
+				$row = $result->fetch_row();
+				return $row[0]+1;
 			}
 		?>
 		
@@ -68,8 +114,9 @@
 		<div id="header">
 			<h1>Registration Page</h1>
 		</div>
+		<?php echo register(); ?>
 		<div class="searchArea">
-			<?php checkFields(); ?>
+			<?php checkForEmptyFields(); ?>
 			<form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
 			<!-- FIELDS REQURED FOR PERSON TABLE -->
 				<label>*First Name <input type="text" name="fname" value="<?php echo $fname; ?>" /></label>
