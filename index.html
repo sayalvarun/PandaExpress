@@ -22,8 +22,8 @@
 						<input type="radio" name="flightType" value="MultiCity">Multi City
 					</form>
 					<form class = "flightSearchForm">
-						FLying From: <input type="text" name="Departure">
-						Last name: <input type="text" name="Arrival"><br>
+						Flying From: <input type="text" name="Departure">
+						Flying To: <input type="text" name="Arrival"><br>
 					</form>
 					<br>
 					<p>Departure Date: <input type="date" name="date" id="date" value="" />
@@ -31,7 +31,9 @@
 					<br>
 					Tickets: <input type="number" name="quantity" min="1" max="20" value = "1">
 					<br>
-					<input id = "searchButton" type="submit" value="Search">
+					<form action = "pages/flightResult.html">
+						<input id = "searchButton" type="submit" value="Search">
+					</form>
 				</div>
 				
 				<div id="container">  
