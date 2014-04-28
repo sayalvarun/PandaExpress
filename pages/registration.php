@@ -13,7 +13,8 @@
 			// define variables and set to empty values
 			$con;
 			$fnameErr = $lnameErr = $addrErr = $cityErr = $stateErr = $zipErr = $unameErr = $pwordErr = "";
-			$fname = $lname = $addr = $city = $state = $zip = $credit = $email = $uname = $pword = NULL;
+			$id = $fname = $lname = $addr = $city = $state = $zip = $credit = $email = $uname = $pword = "";
+			
 			if ($_SERVER["REQUEST_METHOD"] == "POST")
 			{
 				$fname = $_POST["fname"];
@@ -22,12 +23,12 @@
 				$city = $_POST["city"];
 				$state = $_POST["state"];
 				$zip = $_POST["zip"];
-				$credit = $_POST["cc"];
-				$email = $_POST["email"];
 				$uname = $_POST["uname"];
 				$pword = $_POST["pword"];
+				$email = $_POST["email"];		
+				$credit = $_POST["cc"];
 			}
-			
+				
 			function checkForEmptyFields()
 			{
 				global $fnameErr, $lnameErr, $addrErr, $cityErr, $stateErr, $zipErr, $unameErr, $pwordErr;
@@ -36,7 +37,7 @@
 					if (empty($_POST["fname"]))
 						$fnameErr = "First name is required.";
 					if (empty($_POST["lname"]))
-						$lnameErr = "Last name is required.";						
+						$lnameErr = "Last name is required.";		
 					if (empty($_POST["addr"]))
 						$addrErr = "Address is required.";
 					if (empty($_POST["city"]))
@@ -44,9 +45,9 @@
 					if (empty($_POST["state"]))
 						$stateErr = "State is required.";
 					if (empty($_POST["zip"]))
-						$zipErr = "Zipcode is required.";
+						$zipErr = "Zipcode is required.";				
 					if (empty($_POST["uname"]))
-						$unameErr = "Username is required.";				  
+						$unameErr = "Username is required.";	
 					if (empty($_POST["pword"]))
 						$pwordErr = "Password is required.";
 				}
@@ -55,7 +56,8 @@
 			function canRegister()
 			{
 				global $fnameErr, $lnameErr, $addrErr, $cityErr, $stateErr, $zipErr, $unameErr, $pwordErr;
-				if($fnameErr == "" && $lnameErr == "" && $addrErr == "" && $cityErr == "" && $stateErr == "" && $zipErr == "" && $unameErr == "" && $pwordErr == "")
+				
+				if($_SERVER["REQUEST_METHOD"] == "POST" && $fnameErr == "" && $lnameErr == "" && $addrErr == "" && $cityErr == "" && $stateErr == "" && $zipErr == "" && $unameErr == "" && $pwordErr == "")
 					return true;
 				return false;
 			}
@@ -75,29 +77,61 @@
 			
 			function register()
 			{
+				global $id;
 				if(canRegister())
 				{
 					connectToDB();
-					return insertPerson();
-					//insertCustomer();
+					$id = generateId();
+					insertPerson();
+					insertCustomer();
+					mysqli_close($con);
+					header("Location: ../index.html");
 				}
 			}
 			
 			function insertPerson()
 			{
-				global $con, $fname, $lname, $addr, $city, $state, $zip;
-				$query = "INSERT INTO Person (ID, FirstName, LastName, Address, City, State, ZipCode) VALUES (".generateID().", '".$fname."', '".$lname."', '".$addr."', '".$city."', '".$state."', ".$zip.");";
-				//$query = "INSERT INTO PERSON (".generateID().", \"".$fname."\", \"".$lname."\", \"".$addr."\", \"".$city."\", \"".$state."\", ".$zip.");";
+				global $con, $fname, $lname, $addr, $city, $state, $zip, $id;
+				$query = "INSERT INTO Person(ID, FirstName, LastName, Address, City, State, ZipCode) VALUES(".$id.", '".$fname."', '".$lname."', '".$addr."', '".$city."', '".$state."', ".$zip.");";
 				mysqli_query($con, $query);
-				mysqli_close($con);
-
+				return $query;
+			}
+			
+			function insertCustomer()
+			{
+				global $con, $id, $credit, $email;
+				$query = "INSERT INTO Customer(AccountNo, ID, CreditCardNo, Email, CreationDate, Rating)
+							VALUES(".generateAccountNo().", ".$id.", ";
+				if($credit=="")
+					$query = $query."NULL, ";
+				else
+					$query = $query.$credit.", ";
+				if($email=="")
+					$query = $query."NULL";
+				else
+					$query = $query."'".$email."'";
+				$query = $query.", '".date("Y-m-d h:i:s")."', NULL);";
+				mysqli_query($con, $query);
 				return $query;
 			}
 			
 			function generateID()
 			{
 				global $con;
-				$result = mysqli_query($con,"SELECT COUNT(*) FROM Person;");
+				$result = mysqli_query($con,"SELECT MAX(ID) FROM Person;");
+				if (!$result) 
+				{
+					printf("Error: %s\n", mysqli_error($con));
+					exit();
+				}
+				$row = $result->fetch_row();
+				return $row[0]+1;
+			}
+			
+			function generateAccountNo()
+			{
+				global $con;
+				$result = mysqli_query($con,"SELECT MAX(AccountNo) FROM Customer;");
 				if (!$result) 
 				{
 					printf("Error: %s\n", mysqli_error($con));
@@ -114,7 +148,7 @@
 		<div id="header">
 			<h1>Registration Page</h1>
 		</div>
-		<?php echo register(); ?>
+		<?php register(); ?>
 		<div class="searchArea">
 			<?php checkForEmptyFields(); ?>
 			<form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
