@@ -9,54 +9,86 @@
 		<div id="header">
 			<h1> User Profile </h1>
 		</div>
+		<ul class="logoutTab">
+			<li id="username">Username
+				<ul>
+					<li>View Proflie</li>
+					<li>Customize Profile</li>
+					<li>Log Out</li>
+				</ul>
+			</li>
+		</ul>
 		<div class = "orange">
 			<div class = "info">
 				<p> Name: armpit invader</p>
-				<p> Address: 1234 Main Street<span> City: idontcare</span>  <span> State: ny</span>	<span> Zip Code: 54321</span> </p>
-				<p> Email: armpitinvader@gmail.com</p>
-				<p> Credit Card: 123456789100</p>
-				<br /> 
-				<!-- -------------------- -->
-			]	<div class="container">
-					<div class="row">
-						<div class="panel panel-primary filterable">
-							<div class="panel-heading">
-								<h3 class="panel-title">Current Reservations</h3>
-							</div>
-							<table class="table">
-								<thead>
-									<tr class="filters">
-										<th><input type="text" class="form-control" placeholder="Reservation Number" disabled></th>
-										<th><input type="text" class="form-control" placeholder="Departure City" disabled></th>
-										<th><input type="text" class="form-control" placeholder="Arrival City" disabled></th>
-										<th><input type="text" class="form-control" placeholder="Departure Time" disabled></th>
-										<th><input type="text" class="form-control" placeholder="Arrival Time" disabled></th>
-									</tr>
-								</thead>
-								<tbody>
-									<tr>
-										<td>111</td>
-										<td>Atlanta</td>
-										<td>Boston</td>
-										<td>5:40:00</td>
-										<td>7:40:00</td>
-									</tr>
-									<tr>
-										<td>512</td>
-										<td>New York</td>
-										<td>London</td>
-										<td>3:30:00</td>
-										<td>6:00:00</td>
-									</tr>
-								</tbody>
-							</table>
-						</div>
+				<p> Address: 1234 Main Street
+					<div id="addr">
+						<span id = "city"> idontcare</span>,
+						<span id = "state"> ny </span>	
+						<span id = "zip">54321</span> 
 					</div>
+				</p>
+				<p> Email: bopit@gmail.com</p>
+				<p> Credit Card: 123456789100</p>
+				<!-- ---------CURRENT RESERVATION----------- -->
+				<div class="reservations">
+					<table class="table">
+						<tr>
+							<td colspan="5" class="header">Current Reservations</td>
+						</tr>
+						<tr>
+							<td>Reservation Number</td>
+							<td>Departure City</td>
+							<td>Arrival City</td>
+							<td>Departure Time</td>
+							<td>Arrival Time</td>
+						</tr>
+						<tr>
+							<td>111</td>
+							<td>Atlanta</td>
+							<td>Boston</td>
+							<td>5:40:00</td>
+							<td>7:40:00</td>
+						</tr>
+						<tr>
+							<td>512</td>
+							<td>New York</td>
+							<td>London</td>
+							<td>3:30:00</td>
+							<td>6:00:00</td>
+						</tr>
+					</table>
 				</div>
-				<!-- -------------------- -->
-				
-				
-				
+				<br />
+				<!-- --------PAST RESERVATIONS------------ -->
+				<div class="reservations">
+					<table class="table">
+						<tr>
+							<td colspan="5" class="header">Previous Flights</td>
+						</tr>
+						<tr>
+							<td>Reservation Number</td>
+							<td>Departure City</td>
+							<td>Arrival City</td>
+							<td>Departure Time</td>
+							<td>Arrival Time</td>
+						</tr>
+						<tr>
+							<td>111</td>
+							<td>Atlanta</td>
+							<td>Boston</td>
+							<td>5:40:00</td>
+							<td>7:40:00</td>
+						</tr>
+						<tr>
+							<td>512</td>
+							<td>New York</td>
+							<td>London</td>
+							<td>3:30:00</td>
+							<td>6:00:00</td>
+						</tr>
+					</table>
+				</div>
 			</div>
 			
 		</div>

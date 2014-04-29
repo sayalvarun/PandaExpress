@@ -10,73 +10,80 @@ body{
 }
 
 .orange{
-	width: 101.6%;
-	height: 90%;
-	margin-left: -1%;
-	margin-top: -1.4%;
-
-	background: #ffa928; /* Old browsers */
-	background: -moz-linear-gradient(top, #ffa928 0%, #ffb547 50%, #ffb951 100%); /* FF3.6+ */
-	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#ffa928), color-stop(50%,#ffb547), color-stop(100%,#ffb951)); /* Chrome,Safari4+ */
-	background: -webkit-linear-gradient(top, #ffa928 0%,#ffb547 50%,#ffb951 100%); /* Chrome10+,Safari5.1+ */
-	background: -o-linear-gradient(top, #ffa928 0%,#ffb547 50%,#ffb951 100%); /* Opera 11.10+ */
-	background: -ms-linear-gradient(top, #ffa928 0%,#ffb547 50%,#ffb951 100%); /* IE10+ */
-	background: linear-gradient(to bottom, #ffa928 0%,#ffb547 50%,#ffb951 100%); /* W3C */
-	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffa928', endColorstr='#ffb951',GradientType=0 ); /* IE6-9 */
-	border-radius: 20px;
-	font-size: 16pt;
-
-}
-
-.filterable {
-    margin-top: 15px;
-}
-table{
-	color: #FFFFFF;
-	border-color:white;
-	border-style:solid;
-	border-width:1px;
-}
-td, th{
-	border-color:white;
-	border-style:solid;
-	border-width:1px;
-}
-.filterable .panel-heading {
-    margin-top: -20px;
-	border-width:1px;
-}
-.filterable .filters input[disabled] {
-    background-color: transparent;
-    /*border: none;*/
-    cursor: auto;
-    box-shadow: none;
-    padding: 0;
-    height: auto;
-}
-.filterable .filters input[disabled]::-webkit-input-placeholder {
-    color: #FFFFFF;
-}
-.filterable .filters input[disabled]::-moz-placeholder {
-    color: #FFFFFF;
-}
-.filterable .filters input[disabled]:-ms-input-placeholder {
-    color: #FFFFFF;
-}
-
-
-.info{
-	float: left;
-	height: 95%;
-	width: 90%;
-	margin-left: 5%;
+	/*float: left;*/
+	/*height: 95%;*/
 	margin-top: .8%;
+	/*width: 110%;*/
+	margin-left: -5%;
 	background-color: #1F1F2E;
 	color: #FFFFFF;
-	border-radius: 15px;
+	/*border-radius: 15px;*/
+	padding: 2% 5%;
+}
 
+.info{
+	/*float: left;*/
+	/*height: 95%;*/
+	margin-top: .8%;
+	/*width: 110%;*/
+	margin-left: 5%;
+	background-color: #1F1F2E;
+	color: #FFFFFF;
+	/*border-radius: 15px;*/
+	/*padding: 2% 5%;*/
+}
+
+/* -----RESERVATION PART ----- */
+.reservations {
+    margin-top: 15px;
+}
+
+table, tr{
+	color: #FFFFFF;
+	border-color:#C6C6C8;
+	border-style:solid;
+	border-width:1px;
+	margin-left:10px;
+	border-collapse:collapse;
+}
+
+table{
+	/*padding:2px;*/
+	border-radius:10px;
+}
+
+.header{
+	background-color: #315F7A;
+	/*border-radius:10px;*/
+	/*border-bottom-color:black;*/
+	text-align:left;
+	/*color:black;*/
+	font-size:16pt;
+}
+td{
+	padding:5px 20px;
 }
 
 p{
 	margin-left: 10px;
 }
+
+#addr{
+	margin-left:100px;
+	margin-top:-20px;
+}
+/** STUFFS FOR THE LOGOUT TAB **/
+.logoutTab{
+	text-align:right;
+	margin-right:5%;
+}
+li{
+	list-style-type:none;
+}
+li ul{
+	display:none;
+}
+#username:hover>ul{
+	display:block;
+}
+
