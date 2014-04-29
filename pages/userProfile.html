@@ -10,12 +10,12 @@
 		{
 			if(!openedTab)
 			{
-				document.getElementById("tabOps").style.display="block";
+				document.getElementById("tabOps").style.visibility="visible";
 				document.getElementById("triangle").innerHTML="&#9650";
 			}
 			else
 			{
-				document.getElementById("tabOps").style.display="none";
+				document.getElementById("tabOps").style.visibility="hidden";
 				document.getElementById("triangle").innerHTML="&#9660";
 			}
 			openedTab = !openedTab;
@@ -26,16 +26,15 @@
   <body>
 		<div id="header">
 			<h1> User Profile </h1>
+			<ul class="logoutTab">
+				<li id="username">Username <span onclick="clickedUsername();" id="triangle"> &#9660 </span></li>
+				<li id ="tabOps">
+					<a href="userProfile.html">View Profile</a>
+					<a>Customize Profile</a>
+					<a href="../index.html">Log Out</a>
+				</li>
+			</ul>
 		</div>
-		<ul class="logoutTab">
-			<li id="username">Username <span onclick="clickedUsername();" id="triangle"> &#9660 </span>
-				<ul id = "tabOps">
-					<li>View Proflie</li>
-					<li>Customize Profile</li>
-					<li>Log Out</li>
-				</ul>
-			</li>
-		</ul>
 		<div class = "orange">
 			<div class = "info">
 				<p> Name: armpit invader</p>
