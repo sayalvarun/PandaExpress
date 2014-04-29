@@ -3,6 +3,24 @@
 		<title> Welcome to Panda Express! </title>
 		<meta charset="utf-8">		
 		<link rel="stylesheet" type="text/css" href="../styles/profile.css">
+		
+		<script type="text/javascript">
+		var openedTab = false;
+		function clickedUsername()
+		{
+			if(!openedTab)
+			{
+				document.getElementById("tabOps").style.display="block";
+				document.getElementById("triangle").innerHTML="&#9650";
+			}
+			else
+			{
+				document.getElementById("tabOps").style.display="none";
+				document.getElementById("triangle").innerHTML="&#9660";
+			}
+			openedTab = !openedTab;
+		}
+		</script>
 	</head>
 
   <body>
@@ -10,8 +28,8 @@
 			<h1> User Profile </h1>
 		</div>
 		<ul class="logoutTab">
-			<li id="username">Username
-				<ul>
+			<li id="username">Username <span onclick="clickedUsername();" id="triangle"> &#9660 </span>
+				<ul id = "tabOps">
 					<li>View Proflie</li>
 					<li>Customize Profile</li>
 					<li>Log Out</li>

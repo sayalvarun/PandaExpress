@@ -69,8 +69,8 @@ p{
 }
 
 #addr{
-	margin-left:100px;
-	margin-top:-20px;
+	margin-left:80px;
+	margin-top:-15px;
 }
 /** STUFFS FOR THE LOGOUT TAB **/
 .logoutTab{
@@ -79,11 +79,19 @@ p{
 }
 li{
 	list-style-type:none;
+	color:#1F1F2E;
 }
 li ul{
 	display:none;
 }
+/*
 #username:hover>ul{
 	display:block;
 }
-
+*/
+span:hover{
+	color:blue;
+}
+li ul li:hover{
+	color:blue;
+}
