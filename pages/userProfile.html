@@ -5,21 +5,21 @@
 		<link rel="stylesheet" type="text/css" href="../styles/profile.css">
 		
 		<script type="text/javascript">
-		var openedTab = false;
-		function clickedUsername()
-		{
-			if(!openedTab)
+			var openedTab = false;
+			function clickedUsername()
 			{
-				document.getElementById("tabOps").style.visibility="visible";
-				document.getElementById("triangle").innerHTML="&#9650";
+				if(!openedTab)
+				{
+					document.getElementById("tabOps").style.visibility="visible";
+					document.getElementById("triangle").innerHTML="&#9650";
+				}
+				else
+				{
+					document.getElementById("tabOps").style.visibility="hidden";
+					document.getElementById("triangle").innerHTML="&#9660";
+				}
+				openedTab = !openedTab;
 			}
-			else
-			{
-				document.getElementById("tabOps").style.visibility="hidden";
-				document.getElementById("triangle").innerHTML="&#9660";
-			}
-			openedTab = !openedTab;
-		}
 		</script>
 	</head>
 
@@ -28,11 +28,11 @@
 			<h1> User Profile </h1>
 			<ul class="logoutTab">
 				<li id="username">Username <span onclick="clickedUsername();" id="triangle"> &#9660 </span></li>
-				<li id ="tabOps">
-					<a href="userProfile.html">View Profile</a>
-					<a>Customize Profile</a>
-					<a href="../index.html">Log Out</a>
-				</li>
+				<ul id ="tabOps">
+					<li><a href="userProfile.html">View Profile</a>
+					<li><a>Customize Profile</a></li>
+					<li><a href="../index.html">Log Out</a></li>
+				</ul>
 			</ul>
 		</div>
 		<div class = "orange">

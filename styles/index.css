@@ -206,3 +206,36 @@ input[type=submit]:active {
     background-image: -moz-linear-gradient(top left 90deg, #6ec2e8 0%, #b6e2ff 100%);
     background-image: linear-gradient(top left 90deg, #6ec2e8 0%, #b6e2ff 100%);
 }
+/** STUFFS FOR THE LOGOUT TAB **/
+.logoutTab{
+	text-align:right;
+	margin-right:5%;
+	margin-top:-40px;
+}
+#tabOps{
+	visibility:hidden;
+}
+li{
+	list-style-type:none;
+	color:#1F1F2E;
+}
+li ul{
+	/*display:none;*/
+	display:inline-block;
+}
+a{
+	color:black;
+	text-decoration:none;
+	/*display:inline;*/
+	/*margin-right:20%;*/
+}
+a:hover{
+	color:blue;
+}
+span:hover{
+	color:blue;
+}
+li ul li:hover{
+	color:blue;
+	/*cursor:pointer;*/
+}

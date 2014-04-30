@@ -3,6 +3,23 @@
 		<title> Welcome to Panda Express! </title>
 		<meta charset="utf-8">		
 		<link rel="stylesheet" type="text/css" href="styles/index.css">
+		<script type="text/javascript">
+			var openedTab = false;
+			function clickedUsername()
+			{
+				if(!openedTab)
+				{
+					document.getElementById("tabOps").style.visibility="visible";
+					document.getElementById("triangle").innerHTML="&#9650";
+				}
+				else
+				{
+					document.getElementById("tabOps").style.visibility="hidden";
+					document.getElementById("triangle").innerHTML="&#9660";
+				}
+				openedTab = !openedTab;
+			}
+		</script>
 	</head>
 	<!-- -->
 	<body>
@@ -10,8 +27,16 @@
 		</div>
 		<div id="header">
 			<h1 id="companyName"> Panda Express </h1>
+			<ul class="logoutTab">
+				<li id="username">Username <span onclick="clickedUsername();" id="triangle"> &#9660 </span></li>
+				<ul id ="tabOps">
+					<li><a href="pages/userProfile.html">View Profile</a>
+					<li><a>Customize Profile</a></li>
+					<li><a href="index.html">Log Out</a></li>
+				</ul>
+			</ul>
 		</div>
-		
+		<br />
 		<div class = "searchAreaBorder">
 			<div class = "searchArea">
 				<div class = "searchElements">
