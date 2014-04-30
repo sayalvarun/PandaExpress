@@ -3,27 +3,14 @@
 		<title> Welcome to Panda Express! </title>
 		<meta charset="utf-8">		
 		<link rel="stylesheet" type="text/css" href="../styles/profile.css">
+		<link rel="stylesheet" type="text/css" href="../styles/logoutTab.css">
 		
-		<script type="text/javascript">
-			var openedTab = false;
-			function clickedUsername()
-			{
-				if(!openedTab)
-				{
-					document.getElementById("tabOps").style.visibility="visible";
-					document.getElementById("triangle").innerHTML="&#9650";
-				}
-				else
-				{
-					document.getElementById("tabOps").style.visibility="hidden";
-					document.getElementById("triangle").innerHTML="&#9660";
-				}
-				openedTab = !openedTab;
-			}
-		</script>
+		<script src="../scripts/logoutTab.js"></script>
 	</head>
 
-  <body>
+	<body>
+		<div class= "topBar">
+		</div>
 		<div id="header">
 			<h1> User Profile </h1>
 			<ul class="logoutTab">

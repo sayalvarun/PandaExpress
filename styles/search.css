@@ -1,0 +1,40 @@
+.searchAreaBorder{
+	width: 101.6%;
+	height: 70%;
+	margin-left: -1%;
+	margin-top: -1.4%;
+
+	background: #ffa928; /* Old browsers */
+	background: -moz-linear-gradient(top, #ffa928 0%, #ffb547 50%, #ffb951 100%); /* FF3.6+ */
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#ffa928), color-stop(50%,#ffb547), color-stop(100%,#ffb951)); /* Chrome,Safari4+ */
+	background: -webkit-linear-gradient(top, #ffa928 0%,#ffb547 50%,#ffb951 100%); /* Chrome10+,Safari5.1+ */
+	background: -o-linear-gradient(top, #ffa928 0%,#ffb547 50%,#ffb951 100%); /* Opera 11.10+ */
+	background: -ms-linear-gradient(top, #ffa928 0%,#ffb547 50%,#ffb951 100%); /* IE10+ */
+	background: linear-gradient(to bottom, #ffa928 0%,#ffb547 50%,#ffb951 100%); /* W3C */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffa928', endColorstr='#ffb951',GradientType=0 ); /* IE6-9 */
+
+}
+
+.searchArea{
+	float: left;
+	height: 95%;
+	width: 75%;
+	margin-left: 12.3%;
+	margin-top: .8%;
+	background-color: #1F1F2E;
+	color: #FFFFFF;
+	border-radius: 15px;
+
+}
+
+.searchElements{
+	float: left;
+	margin-left: 5px;
+}
+
+#searchButton input[type=submit]{
+	margin-right: 20px;
+    margin-top: 20px;
+    width: 80px;
+    height: 30px;
+}
