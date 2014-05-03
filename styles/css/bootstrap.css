@@ -59,7 +59,7 @@ strong {
 dfn {
   font-style: italic;
 }
-h1 {
+h1e {
   margin: .67em 0;
   font-size: 2em;
 }
@@ -106,7 +106,7 @@ pre,
 samp {
   font-family: monospace, monospace;
   font-size: 1em;
-}
+}/*
 button,
 input,
 optgroup,
@@ -114,7 +114,6 @@ select,
 textarea {
   margin: 0;
   font: inherit;
-  color: inherit;
 }
 button {
   overflow: visible;
@@ -129,7 +128,7 @@ input[type="reset"],
 input[type="submit"] {
   -webkit-appearance: button;
   cursor: pointer;
-}
+} */
 button[disabled],
 html input[disabled] {
   cursor: default;
@@ -266,7 +265,7 @@ th {
   -webkit-box-sizing: border-box;
      -moz-box-sizing: border-box;
           box-sizing: border-box;
-}
+} /*
 html {
   font-size: 62.5%;
 
@@ -278,7 +277,7 @@ body {
   line-height: 1.42857143;
   color: #333;
   background-color: #fff;
-}
+} 
 input,
 button,
 select,
@@ -286,7 +285,7 @@ textarea {
   font-family: inherit;
   font-size: inherit;
   line-height: inherit;
-}
+} */
 a {
   color: #428bca;
   text-decoration: none;
@@ -350,6 +349,7 @@ hr {
   clip: rect(0, 0, 0, 0);
   border: 0;
 }
+/*
 h1,
 h2,
 h3,
@@ -466,7 +466,7 @@ h6,
   font-size: 12px;
 }
 p {
-  margin: 0 0 10px;
+  /* margin: 0 0 10px; */
 }
 .lead {
   margin-bottom: 20px;
@@ -1647,8 +1647,8 @@ legend {
   border-bottom: 1px solid #e5e5e5;
 }
 label {
-  display: inline-block;
-  margin-bottom: 5px;
+  /*display: inline-block;
+  margin-bottom: 5px; */
   font-weight: bold;
 }
 input[type="search"] {
@@ -1656,9 +1656,10 @@ input[type="search"] {
      -moz-box-sizing: border-box;
           box-sizing: border-box;
 }
+
 input[type="radio"],
 input[type="checkbox"] {
-  margin: 4px 0 0;
+  /*margin: 4px 0 0;*/
   margin-top: 1px \9;
   /* IE8-9 */
   line-height: normal;
@@ -1730,7 +1731,7 @@ fieldset[disabled] .form-control {
 }
 textarea.form-control {
   height: auto;
-}
+} /*
 input[type="search"] {
   -webkit-appearance: none;
 }
@@ -1792,7 +1793,7 @@ fieldset[disabled] .radio-inline,
 fieldset[disabled] .checkbox,
 fieldset[disabled] .checkbox-inline {
   cursor: not-allowed;
-}
+} */
 .input-sm {
   height: 30px;
   padding: 5px 10px;
