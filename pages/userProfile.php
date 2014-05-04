@@ -8,22 +8,14 @@
 		<script src="../scripts/logoutTab.js"></script>
 	</head>
 
-	<body>
-		<div class= "topBar">
-			<ul>
-				<li><a href="../index.html">Home</a></li>
-				<li><a href="pages/userProfile.html">Profile</a></li>
-				<li><a href="../index.html">Search</a></li>
-			</ul>
-		</div>
-
+  <body>
 		<div id="header">
 			<h1> User Profile </h1>
 			<ul class="logoutTab">
 				<li id="username">Username <span onclick="clickedUsername();" id="triangle"> &#9660 </span></li>
 				<ul id ="tabOps">
 					<li><a href="userProfile.html">View Profile</a>
-					<li><a>Customize Profile</a></li>
+					<li><a href="customizeProfile.php">Customize Profile</a></li>
 					<li><a href="../index.html">Log Out</a></li>
 				</ul>
 			</ul>

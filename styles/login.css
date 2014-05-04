@@ -1,17 +1,16 @@
 #container {
 	width: 340px;
-	height: 280px;
-	margin-top: 10px;
-	margin-left: 64%;
+	margin-left: 750px;
 		background: #fff;
     
 	border-radius: 3px;
     	border: 1px solid #ccc;
     	box-shadow: 0 1px 2px rgba(0, 0, 0, .1);
+	text-align:left;
 }
 #containerHead{
 	color: #1F1F2E;
-	margin-top:1%;
+	/*margin-top:1%;*/
 	margin-left: 40%;
 }
 #loginForm{
@@ -57,14 +56,12 @@
 #lower {
     background: #ecf2f5;
     width: 100%;
-    height: 69px;
-    margin-top: 20px;
-	
-	margin-left: -1px;
+    height: 75px;
+    margin-top: 15px;
+	/*margin-left: -1px;*/
 	border-radius: 3px;
     	border: 1px solid #ccc;
     	box-shadow: 0 1px 2px rgba(0, 0, 0, .1);
 		border-top: 1px solid #FFFFFF;
-		
 }
 #lower span {color : #000000; margin-left:5px;}

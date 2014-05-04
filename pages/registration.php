@@ -4,8 +4,6 @@
 		<title>Registration</title>
 		<link rel="stylesheet" type="text/css" href="../styles/index.css">
 		<link rel="stylesheet" type="text/css" href="../styles/search.css">
-		<link rel="stylesheet" type="text/css" href="../styles/logout.css">
-		
 		<style type="text/css">
 			label{color:#FFFFFF;}
 			input[type=submit]{float:left; margin-left:50px;}
@@ -146,11 +144,7 @@
 		
 	</head>
 	<body>
-		<!--
-		<div class= "topBar">
-		</div>
-		<br />
-		-->
+		<!--<div class= "topBar"></div>-->
 		<div id="header">
 			<h1>Registration Page</h1>
 		</div>

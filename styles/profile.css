@@ -1,4 +1,5 @@
 html, body{
+
 	font-family: Georgia;
 	-webkit-font-smoothing: antialiased;
 }
@@ -10,12 +11,22 @@ body{
 
 .topBar{
 	width: 110.6%;
-	height: 10%;
-	margin-left: -10%;
-	margin-top: -5%;
-	background-color: /*#AFC1CC*/ #5BD2B8;
-	padding: 0px;
+	margin-top: -1%;
+	margin-left: -.5%;
+	background-color:  #5BD2B8;
+	/*#AFC1CC*/
+}
 
+.topBar ul{
+	padding: 0px;
+}
+
+.topBar li{
+	display: inline;
+}
+
+.topBar a{
+	padding: 10px;
 }
 
 .orange{

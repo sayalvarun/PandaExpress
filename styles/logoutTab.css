@@ -20,13 +20,14 @@ a{
 	/*display:inline;*/
 	/*margin-right:20%;*/
 }
-a:hover{
+li span:hover{
 	color:blue;
+	cursor:pointer;
 }
 span:hover{
 	color:blue;
+	cursor:pointer;
 }
 li ul li:hover{
 	color:blue;
-	cursor:pointer;
 }
