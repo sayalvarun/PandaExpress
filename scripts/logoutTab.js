@@ -21,5 +21,5 @@ function changePage(page, index)
 	document.getElementById(page).style.display="inline-block";
 	currPage = page;
 	document.getElementById("companyName").innerHTML=pages[index];
-	clickedUsername();
+	/*clickedUsername();*/
 }

@@ -5,10 +5,11 @@
 		<link rel="stylesheet" type="text/css" href="styles/index.css">
 		<link rel="stylesheet" type="text/css" href="styles/login.css">
 		<!--<link rel="stylesheet" type="text/css" href="styles/search.css">-->
-		<link rel="stylesheet" type="text/css" href="styles/logoutTab.css">
+		<!--<link rel="stylesheet" type="text/css" href="styles/logoutTab.css">-->
 		<link rel="stylesheet" type="text/css" href="styles/profile.css">
 		<link rel="stylesheet" type="text/css" href="styles/css/bootstrap.css">  
 		
+		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
 		<script src="scripts/js/bootstrap.js"></script>
 		<script src="scripts/logoutTab.js"></script>
 		<?php
@@ -64,7 +65,7 @@
 				<span class="icon-bar"></span>
 				<span class="icon-bar"></span>
 			  </button>
-			  <a class="navbar-brand" href="#">PandaExpress</a>
+			  <span class="navbar-brand" onclick="changePage('index', 0);">PandaExpress</span>
 			</div>
 
 			<!-- Collect the nav links, forms, and other content for toggling -->
@@ -100,7 +101,7 @@
 					<li class="divider"></li>
 					<li><a onclick="changePage('customize', 2)">Customize Profile</a></li>
 					<li class="divider"></li>
-					<li><a href="index-navbar.html">Log Out</a></li>
+					<li><a href="index.php">Log Out</a></li>
 					<!--<li class="divider"></li>
 					<li><a href="#">One more separated link</a></li>
 					-->

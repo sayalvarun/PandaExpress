@@ -14,22 +14,12 @@ h1{
 
 .topBar{
 	width: 110.6%;
-	margin-top: -1%;
-	margin-left: -.5%;
-	background-color:  #5BD2B8;
-	/*#AFC1CC*/
-}
-
-.topBar ul{
+	height: 10%;
+	margin-left: -10%;
+	margin-top: -5%;
+	background-color: /*#AFC1CC*/ #5BD2B8;
 	padding: 0px;
-}
 
-.topBar li{
-	display: inline;
-}
-
-.topBar a{
-	padding: 10px;
 }
 
 #companyName{
@@ -149,11 +139,15 @@ input[type=submit]:active {
     background-image: -moz-linear-gradient(top left 90deg, #6ec2e8 0%, #b6e2ff 100%);
     background-image: linear-gradient(top left 90deg, #6ec2e8 0%, #b6e2ff 100%);
 }
-
+input[type=text], input[type=date], input[type=number]{
+	color:black;
+}
 /*** customize page stuffs ***/
 #customize  label{
 	color:white;
 }
-
 #customize, #viewProf{display:none;}
 
+li{
+	cursor:pointer;
+}
