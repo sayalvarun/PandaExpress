@@ -154,8 +154,6 @@ input[type=submit]:active {
 #customize  label{
 	color:white;
 }
-<<<<<<< HEAD
+
 #customize, #viewProf{display:none;}
-=======
-#customize{display:none;}
->>>>>>> 2b97c64fcea47f0188ce5edcb6dac0543a4452bc
+
