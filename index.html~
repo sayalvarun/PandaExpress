@@ -2,16 +2,35 @@
 	<head lang="en">
 		<title> Welcome to Panda Express! </title>
 		<meta charset="utf-8">		
-		<link rel="stylesheet" type="text/css" href="styles/index.css">
+		<link rel="stylesheet" type="text/css" href="../styles/index.css">
+		<link rel="stylesheet" type="text/css" href="../styles/login.css">
+		<link rel="stylesheet" type="text/css" href="../styles/search.css">
+		<link rel="stylesheet" type="text/css" href="../styles/logoutTab.css">
+		
+		<script src="scripts/logoutTab.js"></script>
 	</head>
 
 	<body>
 		<div class= "topBar">
+			<ul>
+				<li><a href="index.html">Home</a></li>
+				<li><a href="pages/userProfile.html">Profile</a></li>
+				<li><a href="index.html">Search</a></li>
+			</ul>
 		</div>
+		<br />
 		<div id="header">
 			<h1 id="companyName"> Panda Express </h1>
+			<ul class="logoutTab">
+				<li id="username">Username <span onclick="clickedUsername();" id="triangle"> &#9660 </span></li>
+				<ul id ="tabOps">
+					<li><a href="pages/userProfile.html">View Profile</a>
+					<li><a>Customize Profile</a></li>
+					<li><a href="index.html">Log Out</a></li>
+				</ul>
+			</ul>
 		</div>
-		
+		<br />
 		<div class = "searchAreaBorder">
 			<div class = "searchArea">
 				<div class = "searchElements">
