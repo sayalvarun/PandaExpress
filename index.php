@@ -12,16 +12,38 @@
 		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
 		<script src="scripts/js/bootstrap.js"></script>
 		<script src="scripts/logoutTab.js"></script>
+		<script type="text/javascript">
+			$(document).ready(function(){
+				$("#customizeTab").click(function(){
+					$.post("scripts/customizeQueries.php",
+					{
+						username:document.getElementById("user").innerHTML,
+					},
+					function(data,status){
+						alert("Status: "+status); 
+						//for(i = 0; i < data.length; i++);
+							alert("Data: " + data);
+					});
+				});
+			});
+		</script>
 		<?php
 			$con = null;
 			$loggedIn = false;
 			$user = null;
+			$prevPage = "Home";
 			$fname = $lname = $addr = $city = $state = $zip = $email = $credit = null;
 			$fnameErr = $lnameErr = $addrErr = $cityErr = $stateErr = $zipErr = $emailErr = null;
-			if ($_SERVER["REQUEST_METHOD"] == "POST")
+			
+			function startPage()
 			{
-				$user = empty($_POST["uname"]);
-				login();
+				global $user, $prevPage;
+				if ($_SERVER["REQUEST_METHOD"] == "POST")
+				{
+					$prevPage = $_POST["page"];
+					if($prevPage == "login")
+						login();
+				}
 			}
 			function connectToDB()
 			{
@@ -37,15 +59,30 @@
 			}
 			function login()
 			{
-				global $con;
-				connectToDB();
-				$cmd="SELECT * FROM Logins 
-					  WHERE username='".$_POST["username"]."' 
-					  AND password='".$_POST["password"]."'";
-				
-				$result=mysqli_query($con,$cmd);
-				if(!$result || mysqli_num_rows($result)!=0)
+				global $con, $user;
+				if(empty($_POST["username"]) || empty($_POST["password"]))
 					header("Location:pages/login.php");
+				else
+				{
+					connectToDB();
+					$cmd="SELECT * FROM Logins 
+						  WHERE username='".$_POST["username"]."' 
+						  AND password='".$_POST["password"]."'";
+					
+					$result=mysqli_query($con,$cmd);
+					if(!$result || mysqli_num_rows($result)!=0)
+						header("Location:pages/login.php");
+					else
+					{
+						$user = $_POST["username"];
+						echo("<script type='text/javascript'>
+							    document.getElementById('loginButton').style.display='none';
+								document.getElementById('userDropdown').style.display='inline';
+								document.getElementById('user').innerHTML=\"".$user."\";
+								document.getElementById('login').style.visibility='hidden';
+							  </script>");
+					}
+				}
 			}		
 		?>
 	</head>
@@ -59,71 +96,61 @@
 		  <div class="container-fluid">
 			<!-- Brand and toggle get grouped for better mobile display -->
 			<div class="navbar-header">
-			  <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-				<span class="sr-only">Toggle navigation</span>
-				<span class="icon-bar"></span>
-				<span class="icon-bar"></span>
-				<span class="icon-bar"></span>
-			  </button>
-			  <span class="navbar-brand" onclick="changePage('index', 0);">PandaExpress</span>
+				<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+					<span class="sr-only">Toggle navigation</span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>
+				<span id="logo" class="navbar-brand" onclick="changePage('index', 0);">PandaExpress</span>
 			</div>
 
 			<!-- Collect the nav links, forms, and other content for toggling -->
 			<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-			  <ul class="nav navbar-nav">
-				<li><a href="#">Book Flight</a></li>
-				<!--<li><a href="#">Link</a></li>
-				<li class="dropdown">
-				  <a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown <b class="caret"></b></a>
-				  <ul class="dropdown-menu">
-					<li><a href="#">Action</a></li>
-					<li><a href="#">Another action</a></li>
-					<li><a href="#">Something else here</a></li>
-					<li class="divider"></li>
-					<li><a href="#">Separated link</a></li>
-				  </ul>
-				</li>
+				<ul class="nav navbar-nav">
+					<li><a href="#">Book Flight</a></li>
+					<!--<li><a href="#">Link</a></li>
+					<li class="dropdown">
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown <b class="caret"></b></a>
+						<ul class="dropdown-menu">
+							<li><a href="#">Action</a></li>
+							<li><a href="#">Another action</a></li>
+							<li><a href="#">Something else here</a></li>
+							<li class="divider"></li>
+							<li><a href="#">Separated link</a></li>
+						</ul>
+					</li>
 				-->
-			  </ul>
-			  <!--<form class="navbar-form navbar-left" role="search">
-				<div class="form-group">
-				  <input type="text" class="form-control" placeholder="Search">
-				</div>
-				<button type="submit" class="btn btn-default">Submit</button>
-			  </form>
-			  -->
-			  <ul class="nav navbar-nav navbar-right">
-				<li><a href="#">Help</a></li>
-				<li class="dropdown">
-				  <a href="#" class="dropdown-toggle" data-toggle="dropdown">-insert Username here-<b class="caret"></b></a>
-				  <ul class="dropdown-menu">
-					<li><a onclick="changePage('viewProf', 1)">View Profile</a></li>
-					<li class="divider"></li>
-					<li><a onclick="changePage('customize', 2)">Customize Profile</a></li>
-					<li class="divider"></li>
-					<li><a href="index.php">Log Out</a></li>
-					<!--<li class="divider"></li>
-					<li><a href="#">One more separated link</a></li>
-					-->
-				  </ul>
-				</li>
-			  </ul>
+				</ul>
+				<!--<form class="navbar-form navbar-left" role="search">
+					<div class="form-group">
+						<input type="text" class="form-control" placeholder="Search">
+					</div>
+					<button type="submit" class="btn btn-default">Submit</button>
+				</form>
+				-->
+				<ul class="nav navbar-nav navbar-right">
+					<li><a href="#">Help</a></li>
+					<li id="loginButton"><a href="pages/login.php">Login</a></li>
+					<li class="dropdown" id="userDropdown">
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown"><span id="user">-insert Username here-</span><b class="caret"></b></a>
+						<ul class="dropdown-menu">
+							<li><a onclick="changePage('viewProf', 1)">View Profile</a></li>
+							<li class="divider"></li>
+							<li><a id="customizeTab" onclick="changePage('customize', 2)">Customize Profile</a></li>
+							<li class="divider"></li>
+							<li><a href="index.php">Log Out</a></li>
+							<!--<li class="divider"></li>
+							<li><a href="#">One more separated link</a></li>
+							-->
+						</ul>
+					</li>
+				</ul>
 			</div><!-- /.navbar-collapse -->
 		  </div><!-- /.container-fluid -->
 		</nav>
 		<div id="header">
 			<h1 id="companyName"> Panda Express </h1>
-			<!--
-			<ul class="logoutTab">
-				<li id="username">Username <span onclick="clickedUsername();" id="triangle"> &#9660 </span></li>
-				<ul id ="tabOps">
-					<li><span onclick="changePage('viewProf', 1);">View Profile</span></li>
-					<li><span onclick="changePage('customize', 2);">Customize Profile</span></li>
-					<li><span onclick="changePage('index', 0);">Home</span></li>
-					<li><a href="index.php"><span>Log Out</span></a></li>
-				</ul>
-			</ul>
-			-->
 		</div>
 		<br />
 		<div class = "searchAreaBorder">
@@ -150,24 +177,6 @@
 						<br>
 						<form action = "pages/flightResult.html">
 							<input id = "searchButton" type="submit" value="Search">
-						</form>
-					</div>
-		<!-- LOGIN BOX -->			
-					<div id="container">  
-						<div id="containerHead"><h3>Login</h3></div>     
-						<form id="loginForm" method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
-							<label for="username">Username:</label>
-							<input type="text" id="username" name="username">
-							<br />
-							<label for="password">Password:</label>
-							<input type="password" id="password" name="password">
-							<div id="lower">
-								<input type="checkbox"><label for="checkbox">Keep me logged in</label>
-								<input type="submit" value="Login">
-								<br />
-								<span> Don't have an account? <a href = "pages/registration.php">Sign Up</a></span>
-								<br />
-							</div><!--/ lower-->
 						</form>
 					</div>
 				</div>
@@ -250,29 +259,29 @@
 				<div id ="customize">
 					<div class = "container">
 						<form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
-							<label>*First Name <input type="text" name="fname" value="<?php echo $fname; ?>" /></label>
+							<label>First Name <input type="text" name="fname" value="<?php echo $fname; ?>" /></label>
 							<br />
 							<span class="error"><?php echo $fnameErr; ?></span>
 							<br />
-							<label>*Last Name <input type="text" name="lname" value="<?php echo $lname; ?>" /></label>
+							<label>Last Name <input type="text" name="lname" value="<?php echo $lname; ?>" /></label>
 							<br />
 							<span class="error"><?php echo $lnameErr; ?></span>
 							<br />
-							<label>*Address <input type="text" name="addr" value="<?php echo $addr; ?>" /></label>
+							<label>Address <input type="text" name="addr" value="<?php echo $addr; ?>" /></label>
 							<br />
 							<span class="error"><?php echo $addrErr; ?></span>
 							<br />
-							<label>*City <input type="text" name="city" value="<?php echo $city; ?>" /></label>
+							<label>City <input type="text" name="city" value="<?php echo $city; ?>" /></label>
 							<br />
 							<span class="error"><?php echo $cityErr; ?></span>
 							<br />
-							<label>*State <input type="text" name="state" value="<?php echo $state; ?>" /></label>
+							<label>State <input type="text" name="state" value="<?php echo $state; ?>" /></label>
 							<br />
 							<span class="error"><?php echo $stateErr;?></span>
 							<br />
-							<label>*Zip Code <input type="number" name ="zip" value="<?php echo $zip; ?>" min="0" max="99999" /></label>
+							<label>Zip Code <input type="number" name ="zip" value="<?php echo $zip; ?>" min="0" max="99999" /></label>
 							<br />
-							<span class="error"><?php echo $zipErr;?></span>
+							<span class="error"><?php echo $zipErr; ?></span>
 							<br />
 							<br />
 						<!-- FIELDS REQUIRED FOR CUSTOMER TABLE -->	
@@ -296,6 +305,6 @@
 				<p> This will be the navigation area</p>
 			</div>
 		-->
-		
+		<?php startPage(); ?>
 	</body>
 </html>

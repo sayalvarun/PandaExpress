@@ -66,7 +66,7 @@ h1{
 }
 
 .searchElements{
-	float: left;
+	/*float: left;*/
 	margin-left: 5px;
 }
 
@@ -146,8 +146,10 @@ input[type=text], input[type=date], input[type=number]{
 #customize  label{
 	color:white;
 }
-#customize, #viewProf{display:none;}
+#customize, #viewProf, #userDropdown{
+	display:none;
+}
 
-li{
+li, #logo{
 	cursor:pointer;
 }
