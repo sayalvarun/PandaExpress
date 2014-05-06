@@ -1,0 +1,17 @@
+alter table customer
+add username varchar(20) not null;
+
+update customer
+set username="awesomejane"
+where id = 1;
+
+update customer
+set username="jdoe"
+where id = 2;
+
+update customer
+set username="rickroller"
+where id = 3;
+
+ALTER TABLE customer
+ADD CONSTRAINT constr_ID UNIQUE (username);
