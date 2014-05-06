@@ -82,11 +82,20 @@
 				{
 					connectToDB();
 					$id = generateId();
+					echo(createLogin());
 					insertPerson();
 					insertCustomer();
 					mysqli_close($con);
-					header("Location: ../index.html");
+					//header("Location: ../index.html");
 				}
+			}
+			
+			function createLogin()
+			{
+				global $con, $uname, $pword, $id;
+				$query = "insert into logins(username, password, id) values('".$uname."', '".$pword."', ".$id.");";
+				mysqli_query($con, $query);
+				return $query;
 			}
 			
 			function insertPerson()
