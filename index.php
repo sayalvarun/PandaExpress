@@ -70,18 +70,16 @@
 						  AND password='".$_POST["password"]."'";
 					
 					$result=mysqli_query($con,$cmd);
-					if(!$result || mysqli_num_rows($result)!=0)
+					if(!$result || mysqli_num_rows($result)!=1)
 						header("Location:pages/login.php");
 					else
-					{
-						$user = $_POST["username"];
+					$user = $_POST["username"];
 						echo("<script type='text/javascript'>
 							    document.getElementById('loginButton').style.display='none';
 								document.getElementById('userDropdown').style.display='inline';
 								document.getElementById('user').innerHTML=\"".$user."\";
 								document.getElementById('login').style.visibility='hidden';
 							  </script>");
-					}
 				}
 			}		
 		?>

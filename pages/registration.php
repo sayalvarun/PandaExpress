@@ -77,16 +77,16 @@
 			
 			function register()
 			{
-				global $id;
+				global $id, $con;
 				if(canRegister())
 				{
 					connectToDB();
 					$id = generateId();
-					echo(createLogin());
 					insertPerson();
 					insertCustomer();
+					createLogin();
 					mysqli_close($con);
-					//header("Location: ../index.html");
+					header("Location: ../index.php");
 				}
 			}
 			
