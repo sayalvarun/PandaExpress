@@ -1,17 +1,21 @@
-alter table customer
-add username varchar(20) not null;
+create table logins(
+username varchar(20),
+password varchar(20) not null,
+id integer not null,
+primary key(username),
+foreign key(id) references person(id)
+ on delete cascade
+ on update cascade,
+unique(id));
 
-update customer
-set username="awesomejane"
-where id = 1;
+insert into logins
+(username, password, id)
+values('awesomejane', 'abc123', 1);
 
-update customer
-set username="jdoe"
-where id = 2;
+insert into logins
+(username, password, id)
+values('jdoe', 'password', 2);
 
-update customer
-set username="rickroller"
-where id = 3;
-
-ALTER TABLE customer
-ADD CONSTRAINT constr_ID UNIQUE (username);
+insert into logins
+(username, password, id)
+values('rickroller', '1234567', 3);
