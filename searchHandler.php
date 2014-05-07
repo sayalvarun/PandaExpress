@@ -1,0 +1,74 @@
+<html>
+	<head>
+		<title>Panda Express!</title>
+		<link rel="stylesheet" type="text/css" href="styles/searchHandler.css">
+		<link rel="stylesheet" type="text/css" href="styles/logoutTab.css">
+	</head>
+
+	<body>
+
+		<div id="header">
+			<h1> Search Results: </h1>
+			<ul class="logoutTab">
+				<li id="username">Username <span onclick="clickedUsername();" id="triangle"> &#9660 </span></li>
+				<ul id ="tabOps">
+					<li><a href="userProfile.html">View Profile</a>
+					<li><a href="customizeProfile.php">Customize Profile</a></li>
+					<li><a href="../index.html">Log Out</a></li>
+				</ul>
+			</ul>
+		</div>
+		<div class = "orange">
+			<div class = "info">
+				Results:
+				<?php
+		
+				$Depart = $_POST["Departure"];
+				$Arrive = $_POST["Arrival"];
+				$depDate = $_POST["depDate"];
+				$arrDate =  $_POST["arrDate"];
+				$tickets = $_POST["quantity"];
+				$depDay = date('l', strtotime( $depDate));
+	
+				$con = mysqli_connect("localhost", "root", "root", "PandaExpress"); 
+				if (mysqli_connect_errno()) {
+			  		echo "Failed to connect to MySQL: " . mysqli_connect_error();
+				}
+	
+				$cmd = "select F.AirlineID, F.FlightNo, L.DepAirportID, L.ArrAirportID, L.DepTime, L.ArrTime 
+					from Flight F, Leg L 
+					where F.AirlineID = L.AirlineID AND F.FlightNo = L.FlightNo AND DepAirportID = '".$Depart."'
+					AND ArrAirportID = '".$Arrive."' AND date(L.DepTime) = '".$depDate."' AND date(L.ArrTime) = '".$arrDate."';";
+	
+				$params = "AirlineID,FlightNo,DepAirportID,ArrAirportID,DepTime,ArrTime";
+				$parameters = explode(",",$params);
+				$data = mysqli_query($con,$cmd);
+		
+	
+
+
+				Print "<table class = 'phpTable'; border cellpadding=3>";
+					foreach($parameters as &$value){					
+						Print "<th>".$value.":</th> ";
+					}
+
+ 					while($row = mysqli_fetch_array($data)) 
+					{
+						Print "<tr>";
+						//echo $row['Id'] . " " . $row['Name'];
+						//echo "<br>";
+						foreach($parameters as &$value){					
+							Print "<td>".$row[$value] . "</td> ";
+						}
+						Print "<tr>";
+					}
+					Print "</table>";
+				
+				?>
+			</div>
+		
+
+		
+
+	</body>
+</html>
