@@ -20,6 +20,7 @@
 			<div class = "searchArea">
 				<div id="login">  
 					<div id="containerHead"><h3>Login</h3></div>     
+					<!--<form id="loginForm" method="post" action="../scripts/loginAuth.php">-->
 					<form id="loginForm" method="post" action="../index.php">
 						<label for="username">Username:</label>
 						<input type="text" id="username" name="username">

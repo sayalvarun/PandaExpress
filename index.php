@@ -77,6 +77,16 @@
 			$rate = $fname = $lname = $addr = $city = $state = $zip = $email = $credit = null;
 			$fnameErr = $lnameErr = $addrErr = $cityErr = $stateErr = $zipErr = $emailErr = null;
 			
+			function setUserName()
+			{
+				global $user;
+				if(isset($_COOKIE["user"]))
+				{
+					$user = $_COOKIE["user"];
+					resetPage();
+				}	
+			}
+			
 			function startPage()
 			{
 				global $prevPage;
@@ -119,7 +129,10 @@
 					else
 					{
 						$user = $_POST["username"];
-						resetPage();
+						$expire=time()+60*5;
+						setcookie("user", $user, $expire);
+						header("Location:index.php");
+						//resetPage();
 					}
 				}
 			}	
@@ -381,6 +394,9 @@
 				<p> This will be the navigation area</p>
 			</div>
 		-->
-		<?php startPage(); ?>
+		<?php 
+			startPage();
+			setUsername();
+		?>
 	</body>
 </html>
