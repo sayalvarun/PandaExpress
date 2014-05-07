@@ -19,7 +19,7 @@
 			{				
 				global $con;
 				$cmd="SELECT * FROM login 
-					  WHERE username='".$_POST["uname"]."';";
+					  WHERE username='" . $_POST["uname"] . "';"; // "" + x; -> "".$x
 								
 				$result = mysqli_query($con,$cmd);
 				$numRows = mysqli_num_rows($result);

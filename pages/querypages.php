@@ -11,7 +11,7 @@
 				function connectAndQuery($cmd, $paramString){
 
 					//The paramters are delimited by commas
-					$con = mysqli_connect("localhost", "root", "root", "PandaExpress"); 
+					$con = mysqli_connect("localhost", "root", "", "pandaexpress"); 
 					if (mysqli_connect_errno()) {
 				  		echo "Failed to connect to MySQL: " . mysqli_connect_error();
 					}
@@ -46,9 +46,8 @@
 
 	<body>
 		<?php 
-			/*
 			connectAndQuery("select * from Airline","Id,Name"); //Get all airline's
-
+			/*
 			connectAndQuery("select * from Reservation","ResrNo,AccountNo");
 			
 			//Customer level transactions
@@ -110,11 +109,11 @@
 			connectAndQuery("DELETE FROM Includes WHERE ResrNo = 555",""); 
 			connectAndQuery("DELETE FROM ReservationPassenger WHERE ResrNo = 555",""); 
 			connectAndQuery("DELETE FROM Reservation WHERE ResrNo = 555",""); 
-			*/
+			
 			connectAndQuery("select * from Reservation","ResrNo,AccountNo");
 			connectAndQuery("select * from ReservationPassenger","ResrNo,Id");
 			connectAndQuery("select * from Includes","ResrNo,AirlineID");
-
+			*/
 			/*
 			//Customer representative level transactions
 			connectAndQuery("CREATE VIEW FlightReservation(AirlineID, FlightNo, ResrCount) AS 
