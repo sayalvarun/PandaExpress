@@ -15,14 +15,15 @@
 		<script type="text/javascript">
 			$(document).ready(function(){
 				$("#customizeTab").click(function(){
-					$.post("scripts/customizeQueries.php",
+					$.post("scripts/UserInfoQueries.php",
 					{
 						username:document.getElementById("user").innerHTML,
 					},
 					function(data,status){
-						alert("Status: "+status); 
-						//for(i = 0; i < data.length; i++);
-							alert("Data: " + data);
+						data = data.split("~");
+						fields = document.getElementsByClassName("cProf");
+						for(i = 0; i < data.length; i++)
+							fields[i].value = data[i];
 					});
 				});
 			});
@@ -32,7 +33,7 @@
 			$loggedIn = false;
 			$user = null;
 			$prevPage = "Home";
-			$fname = $lname = $addr = $city = $state = $zip = $email = $credit = null;
+			$rate = $fname = $lname = $addr = $city = $state = $zip = $email = $credit = null;
 			$fnameErr = $lnameErr = $addrErr = $cityErr = $stateErr = $zipErr = $emailErr = null;
 			
 			function startPage()
@@ -73,13 +74,14 @@
 					if(!$result || mysqli_num_rows($result)!=1)
 						header("Location:pages/login.php");
 					else
-					$user = $_POST["username"];
+					{
+						$user = $_POST["username"];
 						echo("<script type='text/javascript'>
 							    document.getElementById('loginButton').style.display='none';
 								document.getElementById('userDropdown').style.display='inline';
 								document.getElementById('user').innerHTML=\"".$user."\";
-								document.getElementById('login').style.visibility='hidden';
 							  </script>");
+					}
 				}
 			}		
 		?>
@@ -257,37 +259,40 @@
 				<div id ="customize">
 					<div class = "container">
 						<form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
-							<label>First Name <input type="text" name="fname" value="<?php echo $fname; ?>" /></label>
+							<label>First Name <input class="cProf" type="text" name="fname" value="<?php echo $fname; ?>" /></label>
 							<br />
 							<span class="error"><?php echo $fnameErr; ?></span>
 							<br />
-							<label>Last Name <input type="text" name="lname" value="<?php echo $lname; ?>" /></label>
+							<label>Last Name <input class="cProf" type="text" name="lname" value="<?php echo $lname; ?>" /></label>
 							<br />
 							<span class="error"><?php echo $lnameErr; ?></span>
 							<br />
-							<label>Address <input type="text" name="addr" value="<?php echo $addr; ?>" /></label>
+							<label>Address <input class="cProf" type="text" name="addr" value="<?php echo $addr; ?>" /></label>
 							<br />
 							<span class="error"><?php echo $addrErr; ?></span>
 							<br />
-							<label>City <input type="text" name="city" value="<?php echo $city; ?>" /></label>
+							<label>City <input class="cProf" type="text" name="city" value="<?php echo $city; ?>" /></label>
 							<br />
 							<span class="error"><?php echo $cityErr; ?></span>
 							<br />
-							<label>State <input type="text" name="state" value="<?php echo $state; ?>" /></label>
+							<label>State <input class="cProf" type="text" name="state" value="<?php echo $state; ?>" /></label>
 							<br />
 							<span class="error"><?php echo $stateErr;?></span>
 							<br />
-							<label>Zip Code <input type="number" name ="zip" value="<?php echo $zip; ?>" min="0" max="99999" /></label>
+							<label>Zip Code <input class="cProf" type="number" name ="zip" value="<?php echo $zip; ?>" min="0" max="99999" /></label>
 							<br />
 							<span class="error"><?php echo $zipErr; ?></span>
 							<br />
 							<br />
 						<!-- FIELDS REQUIRED FOR CUSTOMER TABLE -->	
-							<label>Credit Card <input type="number" name="cc" value="<?php echo $credit; ?>" min="0" max="999999999999" /></label>
+							<label>Credit Card <input class="cProf" type="number" name="cc" value="<?php echo $credit; ?>" min="0" max="999999999999" /></label>
 							<br />
-							<label>Email <input type="email" name="email" value="<?php echo $email; ?>" /></label>
+							<label>Email <input class="cProf" type="email" name="email" value="<?php echo $email; ?>" /></label>
 							<br />
-							<input type="submit" />
+							<label>Rating<input class="cProf" type="number" name="rate" value="<?php echo $rate; ?>" /></label>
+							<br />
+							
+							<input type="submit" value="Search">
 						</form>
 					</div>
 				</div>
