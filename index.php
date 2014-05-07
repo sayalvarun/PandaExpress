@@ -26,6 +26,32 @@
 							fields[i].value = data[i];
 					});
 				});
+				
+				$("#viewTab").click(function(){
+					$.post("scripts/UserInfoQueries.php",
+					{
+						username:document.getElementById("user").innerHTML,
+					},
+					function(data,status){
+						data = data.split("~");
+						
+						document.getElementById("vName").innerHTML=data[0]+" "+data[1];
+						document.getElementById("vAddr").innerHTML=data[2];
+						document.getElementById("vCity").innerHTML=data[3];
+						document.getElementById("vState").innerHTML=data[4];
+						document.getElementById("vZip").innerHTML=data[5];
+						document.getElementById("vCC").innerHTML=data[6];
+						document.getElementById("vEmail").innerHTML=data[7];
+					});
+					
+					$.post("scripts/UserResrvQueries.php",
+					{
+						username:document.getElementById("user").innerHTML
+					},
+					function(data,status){
+						alert(data);
+					});
+				});
 			});
 		</script>
 		<?php
@@ -125,6 +151,9 @@
 				if(!empty($_POST["rate"]))
 					runUpdates("customer", "rating", $_POST["rate"], $id);
 				resetPage();
+				echo("<script type='text/javascript'>
+						alert('Changes Saved');
+					  </script");
 			}
 			
 			function runUpdates($table, $attr, $value, $id)
@@ -184,7 +213,7 @@
 					<li class="dropdown" id="userDropdown">
 						<a href="#" class="dropdown-toggle" data-toggle="dropdown"><span id="user">-insert Username here-</span><b class="caret"></b></a>
 						<ul class="dropdown-menu">
-							<li><a onclick="changePage('viewProf', 1)">View Profile</a></li>
+							<li><a id="viewTab" onclick="changePage('viewProf', 1)">View Profile</a></li>
 							<li class="divider"></li>
 							<li><a id="customizeTab" onclick="changePage('customize', 2)">Customize Profile</a></li>
 							<li class="divider"></li>
@@ -231,21 +260,21 @@
 <!-- VIEW PROFILE STARTS HERE -->
 				<div id="viewProf">
 					<div class = "container">
-						<p> Name: armpit invader</p>
-						<p> Address: 1234 Main Street
+						<p> Name: <span id="vName">armpit invader</span></p>
+						<p> Address: <span id="vAddr">1234 Main Street</span>
 							<div id="addr">
-								<span id = "city"> idontcare</span>,
-								<span id = "state"> ny </span>	
-								<span id = "zip">54321</span> 
+								<span id = "vCity"> idontcare</span>,
+								<span id = "vState"> ny </span>	
+								<span id = "vZip">54321</span> 
 							</div>
 						</p>
-						<p> Email: bopit@gmail.com</p>
-						<p> Credit Card: 123456789100</p>
+						<p> Email: <span id="vEmail">bopit@gmail.com</span></p>
+						<p> Credit Card: <span id="vCC">123456789100</span></p>
 						<!-- ---------CURRENT RESERVATION----------- -->
 						<div class="reservations">
 							<table class="table">
 								<tr>
-									<td colspan="5" class="header">Current Reservations</td>
+									<td colspan="6" class="header">Current Reservations</td>
 								</tr>
 								<tr>
 									<td>Reservation Number</td>
@@ -253,6 +282,7 @@
 									<td>Arrival City</td>
 									<td>Departure Time</td>
 									<td>Arrival Time</td>
+									<td>Price</td>
 								</tr>
 								<tr>
 									<td>111</td>
@@ -260,6 +290,7 @@
 									<td>Boston</td>
 									<td>5:40:00</td>
 									<td>7:40:00</td>
+									<td>$1245</td>
 								</tr>
 								<tr>
 									<td>512</td>
@@ -267,6 +298,7 @@
 									<td>London</td>
 									<td>3:30:00</td>
 									<td>6:00:00</td>
+									<td>$1245</td>
 								</tr>
 							</table>
 						</div>
@@ -275,7 +307,7 @@
 						<div class="reservations">
 							<table class="table">
 								<tr>
-									<td colspan="5" class="header">Previous Flights</td>
+									<td colspan="6" class="header">Previous Flights</td>
 								</tr>
 								<tr>
 									<td>Reservation Number</td>
@@ -283,6 +315,7 @@
 									<td>Arrival City</td>
 									<td>Departure Time</td>
 									<td>Arrival Time</td>
+									<td>Price</td>
 								</tr>
 								<tr>
 									<td>111</td>
@@ -290,6 +323,7 @@
 									<td>Boston</td>
 									<td>5:40:00</td>
 									<td>7:40:00</td>
+									<td>$12456</td>
 								</tr>
 								<tr>
 									<td>512</td>
@@ -297,6 +331,7 @@
 									<td>London</td>
 									<td>3:30:00</td>
 									<td>6:00:00</td>
+									<td>$1245</td>
 								</tr>
 							</table>
 						</div>
