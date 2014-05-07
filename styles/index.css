@@ -153,3 +153,531 @@ input[type=text], input[type=date], input[type=number]{
 li, #logo{
 	cursor:pointer;
 }
+/* CAROUSEL */
+.lookupTGGFWR, .lookupforemostTGGFWR, .lookupdockedTGGFWR, .rowiframeTGGFWR, .celliframeTGGFWR, .iframeTGGFWR, .emptyTGGFWR, .barTGGFWR, .barforemostTGGFWR, .bardockedTGGFWR, .cellTGGFWR, .leftTGGFWR, .rightTGGFWR, .buttoncontainerTGGFWR, .buttonTGGFWR, .buttonimageTGGFWR, .waitingTGGFWR, .handleTGGFWR, .queryTGGFWR, .hintTGGFWR, .templateTGGFWR, .firstlevelgroupTGGFWR, .notfirstlevelgroupTGGFWR{
+	    background: none !important;
+	    border: 0px !important;
+	    border-style: none !important;
+	     color: black !important;
+	     direction: ltr !important;
+	     float: none !important;
+	     font-family: sans-serif !important;
+	     font-size: small !important;
+	     font-style: normal !important;
+	     font-variant: normal !important;
+	     font-weight: normal !important;
+	     letter-spacing: normal !important;
+	     line-height: normal !important;
+	     margin: 0px !important;
+	    padding: 0px !important;
+	    text-align: left !important;
+	     text-decoration: none !important;
+	     text-indent: 0px !important;
+	     text-transform: none !important;
+	     vertical-align: baseline !important;
+	    white-space: normal !important;
+}
+
+div.lookupTGGFWR{
+	     display: table !important;
+	     -webkit-transition: -webkit-box-shadow 0.25s linear, border-color 0.25s linear !important;
+}
+
+div.lookupforemostTGGFWR{
+}
+
+div.lookupdockedTGGFWR{
+}
+
+div.rowiframeTGGFWR{
+	     display: table-row !important;
+}
+
+div.rowiframeTGGFWR td.celliframeTGGFWR{
+	      display: table-cell !important;
+	      width: 100% !important;
+	      height: 100% !important;
+}
+
+td.celliframeTGGFWR iframe.iframeTGGFWR{
+	       display: inline !important;
+	       width: 100% !important;
+	       height: 100% !important;
+	       background-color: white !important;
+}
+
+iframe.emptyTGGFWR{
+	       background-image: url('chrome-extension://hljnlfolmbmibdjaikiaepgepgnldclj/img/128.png') !important;
+	       background-position: 50% 50% !important;
+	       background-repeat: no-repeat !important;
+}
+
+div.barTGGFWR{
+	     display: table-row !important;
+	     -webkit-transition: background 0.25s linear !important;
+	     width: 100% !important;
+	     cursor: move !important;
+	     background: lightgrey !important;
+}
+
+div.barforemostTGGFWR{
+	background: #84b7ea !important;
+}
+
+div.bardockedTGGFWR{
+	background: #336699 !important;
+}
+
+div.barTGGFWR div.cellTGGFWR{
+	     display: table-cell !important;
+	     vertical-align: middle !important;
+}
+
+div.leftTGGFWR{
+	     padding-right: 16px !important;
+	     text-align: left !important;
+}
+
+div.rightTGGFWR{
+	     white-space: nowrap !important;
+	     text-align: right !important;
+}
+
+span.buttoncontainerTGGFWR{
+	     display:inline !important;
+}
+
+a.buttonTGGFWR:link{
+	     display:inline !important;
+	     -webkit-user-select: none !important;
+	     color: transparent !important;
+}
+
+a.buttonTGGFWR img.buttonimageTGGFWR{
+	     display:inline !important;
+	     vertical-align: middle !important;
+}
+
+img.waitingTGGFWR{
+	     display:inline !important;
+	     cursor: pointer !important;
+	     -webkit-user-select: none !important;
+	     vertical-align: middle !important;
+	     padding-left: 6px !important;
+	 padding-right: 6px !important;
+}
+
+div.handleTGGFWR{
+	     display:block !important;
+	     cursor: se-resize !important;
+	     left: 100% !important;
+	     top: 100% !important;
+	     margin-left: -4px !important;
+	     margin-top: -4px !important;
+	     position: absolute !important;
+	     width: 8px !important;
+	 height: 8px !important;
+}
+
+input.queryTGGFWR{
+	     display:inline-block !important;
+	     background: white !important;
+	     vertical-align: top !important;
+	     border: 1px solid darkgrey !important;
+	      font-size: 13px !important;
+	      padding-top: 1px !important;
+	 padding-bottom: 1px !important;
+	     width: 12em !important;
+}
+
+.hintTGGFWR{
+	      color: lightgrey !important;
+	      font-style:italic !important;
+}
+
+select.templateTGGFWR{
+	     display:inline-block !important;
+	     background: white !important;
+	     font-size: 13px !important;
+	      border: 1px solid darkgrey !important;
+	      vertical-align: top !important;
+	     white-space: pre !important;
+	     width: 9em !important;
+	     margin-right: 2px !important;
+}
+
+optgroup.firstlevelgroupTGGFWR{
+	      color: blue !important;
+}
+
+.notfirstlevelgroupTGGFWR{
+	      color: black !important;
+}
+
+.tipGBYZSA, .arrowGBYZSA, .arrowupGBYZSA, .arrowdownGBYZSA, .mainGBYZSA, .closeGBYZSA, .barGBYZSA, .rowGBYZSA, .cellGBYZSA, .leftGBYZSA, .rightGBYZSA, .displaytitleGBYZSA, .refreshGBYZSA, .pagingGBYZSA, .brandGBYZSA, .textGBYZSA, .leftlabelGBYZSA, .selectGBYZSA, .checkboxGBYZSA, .waitingGBYZSA, .buttoncontainerGBYZSA, .buttonGBYZSA, .buttonimageGBYZSA, .flagGBYZSA, .noticebarscontainerGBYZSA, .noticebarGBYZSA, .iframecontentGBYZSA{
+	    background: none !important;
+	    border: 0px !important;
+	    border-style: none !important;
+	     color: black !important;
+	     direction: ltr !important;
+	     float: none !important;
+	     font-family: sans-serif !important;
+	     font-size: small !important;
+	     font-style: normal !important;
+	     font-variant: normal !important;
+	     font-weight: normal !important;
+	     letter-spacing: normal !important;
+	     line-height: normal !important;
+	     margin: 0px !important;
+	    padding: 0px !important;
+	    text-align: left !important;
+	     text-decoration: none !important;
+	     text-indent: 0px !important;
+	     text-transform: none !important;
+	     vertical-align: baseline !important;
+	    white-space: normal !important;
+}
+
+div.tipGBYZSA{
+	     position: absolute !important;
+	     display:block !important;
+}
+
+div.arrowGBYZSA{
+	display:block !important;
+}
+
+canvas.arrowupGBYZSA{
+	      display: inline !important;
+	      vertical-align: bottom !important;
+}
+
+canvas.downupGBYZSA{
+	      display: inline !important;
+	      vertical-align: top !important;
+}
+
+div.mainGBYZSA{
+	display: block !important;
+}
+
+img.closeGBYZSA{
+	      display: block !important;
+	      -webkit-transition: opacity 0.5s linear !important;
+	      float: right !important;
+	      margin-right: -5px !important;
+	      margin-top: -5px !important;
+}
+
+div.barGBYZSA{
+	     display: table !important;
+	      margin-bottom: 4px !important;
+	     -webkit-user-select: none !important;
+	     width: 100% !important;
+}
+
+div.rowGBYZSA{
+	display: table-row !important;
+}
+
+div.cellGBYZSA{
+	      display: table-cell !important;
+	      vertical-align: middle !important;
+}
+
+.leftGBYZSA{
+	      padding-right: 16px !important;
+	      text-align: left !important;
+}
+
+.rightGBYZSA{
+	text-align: right !important;
+}
+
+span.refreshGBYZSA{
+	display: inline !important;
+}
+
+span.pagingGBYZSA{
+	      display: inline !important;
+	      font-size: x-small !important;
+}
+
+span.buttoncontainerGBYZSA{
+	display: inline !important;
+}
+
+span.displaytitleGBYZSA{
+	      display: inline !important;
+	      padding-left: 6px !important;
+	      font-size: small !important;
+	      font-weight: bold !important;
+}
+
+span.displaytitleGBYZSA a:link{
+	       display: inline !important;
+	       color: #0645AD !important;
+	       text-decoration: none !important;
+}
+
+span.displaytitleGBYZSA img{
+	display: inline !important;
+}
+
+span.brandGBYZSA{
+	      display: inline !important;
+	      font-size: x-small !important;
+}
+
+.brandGBYZSA a{
+	       display: inline !important;
+	       font-size: x-small !important;
+}
+
+.brandGBYZSA a:link{
+	       display: inline !important;
+	       color: #0645AD !important;
+	       text-decoration: none !important;
+}
+
+.brandGBYZSA a:visited{
+	       display: inline !important;
+	       color: #0B0080 !important;
+	       text-decoration: none !important;
+}
+
+span.textGBYZSA{
+	      display: inline !important;
+	      font-size: x-small !important;
+}
+
+label.leftlabelGBYZSA{
+	      display: inline !important;
+	      font-size: x-small !important;
+	      margin-right: 3px !important;
+}
+
+select.selectGBYZSA{
+	       display: inline-block !important;
+	       border: 1px solid darkgrey !important;
+	       white-space: pre !important;
+	       font-size: x-small !important;
+}
+
+input.checkboxGBYZSA{
+	      display: inline-block !important;
+	      vertical-align: text-top !important;
+	      font-size: x-small !important;
+	      margin-right: 0.3em !important;
+}
+
+img.waitingGBYZSA{
+	      display: inline !important;
+	      -webkit-user-select: none !important;
+	      vertical-align: middle !important;
+	      padding-left: 3px !important;
+}
+
+a.buttonGBYZSA, a.buttonGBYZSA:link{
+	      display: inline !important;
+	      -webkit-user-select: none !important;
+	      color: transparent !important;
+	      margin-right: 2px !important;
+}
+
+img.buttonimageGBYZSA{
+	      display: inline !important;
+	      vertical-align: middle !important;
+}
+
+img.flagGBYZSA{
+	      display: inline !important;
+	      vertical-align: middle !important;
+	      padding-bottom:2px !important;
+}
+
+img.buttonselectedGBYZSA{
+	      display: inline !important;
+	      background: #dd8 !important;
+	      border: 1px solid #bb6 !important;
+	      margin: -1px !important;
+	      border-radius: 2px !important;
+}
+
+div.noticebarscontainerGBYZSA{
+	     display: block !important;
+	     text-align: left !important;
+	     margin-bottom: 4px !important;
+	     overflow-y: auto !important;
+}
+
+div.noticebarGBYZSA{
+	     display: block !important;
+	     background: white !important;
+	     font-size: x-small !important;
+	     border-left: 3px solid lightGrey !important;
+	     margin-bottom: 1px !important;
+	     padding-left: 2px !important;
+}
+
+div.noticebarGBYZSA img{
+	      display: inline !important;
+	      margin-right: 1px !important;
+	      vertical-align: text-top !important;
+}
+
+div.noticebarGBYZSA a{
+	      display: inline !important;
+	      font-family: sans-serif !important;
+	       font-style: normal !important;
+	       font-variant: normal !important;
+	       font-weight: normal !important;
+	       font-size: x-small !important;
+}
+
+div.noticebarGBYZSA a:link{
+	      display: inline !important;
+	      color: #0645AD !important;
+	      text-decoration: none !important;
+}
+
+div.noticebarGBYZSA a:visited{
+	      display: inline !important;
+	      color: #0B0080 !important;
+	      text-decoration: none !important;
+}
+
+iframe.iframecontentGBYZSA{
+	     display: inline !important;
+	     width: 100% !important;
+}
+
+/* GLOBAL STYLES
+-------------------------------------------------- */
+/* Padding below the footer and lighter body text */
+
+body {
+  padding-bottom: 40px;
+  color: #5a5a5a;
+}
+
+
+
+/* CUSTOMIZE THE NAVBAR
+-------------------------------------------------- */
+
+/* Special class on .container surrounding .navbar, used for positioning it into place. */
+.navbar-wrapper {
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  z-index: 20;
+}
+
+/* Flip around the padding for proper display in narrow viewports */
+.navbar-wrapper .container {
+  padding-right: 0;
+  padding-left: 0;
+}
+.navbar-wrapper .navbar {
+  padding-right: 15px;
+  padding-left: 15px;
+}
+
+
+/* CUSTOMIZE THE CAROUSEL
+-------------------------------------------------- */
+
+/* Carousel base class */
+.carousel {
+  height: 500px;
+  margin-bottom: 60px;
+}
+/* Since positioning the image, we need to help out the caption */
+.carousel-caption {
+  z-index: 10;
+}
+
+/* Declare heights because of positioning of img element */
+.carousel .item {
+  height: 500px;
+  background-color: #777;
+}
+.carousel-inner > .item > img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  min-width: 100%;
+  height: 500px;
+}
+
+
+
+/* MARKETING CONTENT
+-------------------------------------------------- */
+
+/* Pad the edges of the mobile views a bit */
+.marketing {
+  padding-right: 15px;
+  padding-left: 15px;
+}
+
+/* Center align the text within the three columns below the carousel */
+.marketing .col-lg-4 {
+  margin-bottom: 20px;
+  text-align: center;
+}
+.marketing h2 {
+  font-weight: normal;
+}
+.marketing .col-lg-4 p {
+  margin-right: 10px;
+  margin-left: 10px;
+}
+
+
+/* Featurettes
+------------------------- */
+
+.featurette-divider {
+  margin: 80px 0; /* Space out the Bootstrap <hr> more */
+}
+
+/* Thin out the marketing headings */
+.featurette-heading {
+  font-weight: 300;
+  line-height: 1;
+  letter-spacing: -1px;
+}
+
+
+
+/* RESPONSIVE CSS
+-------------------------------------------------- */
+
+@media (min-width: 768px) {
+
+  /* Remove the edge padding needed for mobile */
+  .marketing {
+    padding-right: 0;
+    padding-left: 0;
+  }
+
+  /* Bump up size of carousel content */
+  .carousel-caption p {
+    margin-bottom: 20px;
+    font-size: 21px;
+    line-height: 1.4;
+  }
+
+  .featurette-heading {
+    font-size: 50px;
+  }
+}
+
+@media (min-width: 992px) {
+  .featurette-heading {
+    margin-top: 120px;
+  }
+}
