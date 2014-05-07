@@ -30,7 +30,6 @@
 		</script>
 		<?php
 			$con = null;
-			$loggedIn = false;
 			$user = null;
 			$prevPage = "Home";
 			$rate = $fname = $lname = $addr = $city = $state = $zip = $email = $credit = null;
@@ -38,12 +37,14 @@
 			
 			function startPage()
 			{
-				global $user, $prevPage;
+				global $prevPage;
 				if ($_SERVER["REQUEST_METHOD"] == "POST")
 				{
 					$prevPage = $_POST["page"];
 					if($prevPage == "login")
 						login();
+					if($prevPage == "customizeProfile")
+						customize();
 				}
 			}
 			function connectToDB()
@@ -76,14 +77,62 @@
 					else
 					{
 						$user = $_POST["username"];
-						echo("<script type='text/javascript'>
-							    document.getElementById('loginButton').style.display='none';
-								document.getElementById('userDropdown').style.display='inline';
-								document.getElementById('user').innerHTML=\"".$user."\";
-							  </script>");
+						resetPage();
 					}
 				}
-			}		
+			}	
+			
+			function resetPage()
+			{
+				global $user;
+				echo("<script type='text/javascript'>
+						document.getElementById('loginButton').style.display='none';
+						document.getElementById('userDropdown').style.display='inline';
+						document.getElementById('cUser').value='".$user."';
+						document.getElementById('user').innerHTML=\"".$user."\";
+					  </script>");
+			}
+			
+			function customize()
+			{
+				global $con, $user;
+				connectToDB();
+				$user = $_POST["user"];
+				//echo($user);
+				//get id
+				$query = "select id from logins where username = '".$user."';";
+				$result = mysqli_query($con, $query);
+				$row = mysqli_fetch_array($result);
+				$id = $row['id'];
+				
+				if(!empty($_POST["fname"]))
+					runUpdates("person", "firstname", $_POST["fname"], $id);
+				if(!empty($_POST["lname"]))
+					runUpdates("person", "lastname", $_POST["lname"], $id);
+				if(!empty($_POST["addr"]))
+					runUpdates("person", "address", $_POST["addr"], $id);
+				if(!empty($_POST["city"]))
+					runUpdates("person", "city", $_POST["city"], $id);
+				if(!empty($_POST["state"]))
+					runUpdates("person", "state", $_POST["state"], $id);
+				if(!empty($_POST["zip"]))
+					runUpdates("person", "zipcode", $_POST["zip"], $id);
+				
+				if(!empty($_POST["cc"]))
+					runUpdates("customer", "creditcardno", $_POST["cc"], $id);
+				if(!empty($_POST["email"]))
+					runUpdates("customer", "email", $_POST["email"], $id);
+				if(!empty($_POST["rate"]))
+					runUpdates("customer", "rating", $_POST["rate"], $id);
+				resetPage();
+			}
+			
+			function runUpdates($table, $attr, $value, $id)
+			{
+				global $con, $user;
+				$query = "update ".$table." set ".$attr."='".$value."' where id=".$id.";";
+				mysqli_query($con, $query);
+			}
 		?>
 	</head>
 
@@ -290,9 +339,11 @@
 							<label>Email <input class="cProf" type="email" name="email" value="<?php echo $email; ?>" /></label>
 							<br />
 							<label>Rating<input class="cProf" type="number" name="rate" value="<?php echo $rate; ?>" /></label>
+							<input type="hidden" name="page" value="customizeProfile" />
+							<input type="hidden" name="user" id="cUser" />
 							<br />
 							
-							<input type="submit" value="Search">
+							<input type="submit" value="Update">
 						</form>
 					</div>
 				</div>
