@@ -9,6 +9,7 @@
 				global $con, $cmd, $data, $row;	
 
 				function connectAndQuery($cmd, $paramString){
+
 					//The paramters are delimited by commas
 					$con = mysqli_connect("localhost", "root", "root", "PandaExpress"); 
 					if (mysqli_connect_errno()) {
@@ -17,6 +18,11 @@
 
 					
  					$data = mysqli_query($con,$cmd);
+					
+					if(mysqli_query($con,$cmd)){
+						echo mysqli_error($con);
+					}	
+									
 					$parameters = explode(",", $paramString);
 
 					if(count($data)>0){
@@ -77,16 +83,37 @@
  					WHERE R.ResrNo = I.ResrNo AND FR.AirlineID = I.AirlineID 
  					AND FR.FlightNo = I.FlightNo AND R.AccountNo = 1008) 
 					ORDER BY FR.ResrCount DESC;", "AirlineID,FlightNo,ResrCount"); //Personalized flight suggestion list
-			*/
-			//connectAndQuery("INSERT INTO Includes VALUES (555, 'AA', 111, 1, '2014-04-10');","");
-			connectAndQuery("INSERT INTO Reservation VALUES (555, '2014-04-01 16:50:45', 100, 1000, NULL, 1008);","")  
-			//connectAndQuery("INSERT INTO ReservationPassenger VALUES(555, 1, 1008, '10B', 'First', 'Steak');",""); 
+			
+			connectAndQuery("INSERT INTO Includes VALUES (555, 'AA', 111, 1, '2014-04-10');","");
+			connectAndQuery("INSERT INTO Reservation VALUES (555, '2014-04-01 16:50:45', 100, 1000, NULL, 1008);","");  
+			connectAndQuery("INSERT INTO ReservationPassenger VALUES(555, 1, 1008, '10B', 'First', 'Steak');",""); 
 					//Add a 1 way reservation
 					//(!contains hardcoded parameters)
+			
 
+			connectAndQuery("INSERT INTO Reservation VALUES (666, '2014-04-01 16:50:45', 100, 1000, NULL, 1008);", ""); 
+			connectAndQuery("INSERT INTO Includes VALUES (666, 'AA', 111, 1, '2014-04-10');", ""); 
+			connectAndQuery("INSERT INTO Includes VALUES (666, 'AA', 101, 1, '2014-04-20');",""); 
+			connectAndQuery("INSERT INTO ReservationPassenger VALUES(666, 1, 1008, '10B', 'First', 'Steak');","");
+			
 			connectAndQuery("select * from Reservation","ResrNo,AccountNo");
-			connectAndQuery("select * from ReservationPassenger","");
-			connectAndQuery("select * from Includes","");
+			connectAndQuery("select * from ReservationPassenger","ResrNo,Id");
+			connectAndQuery("select * from Includes","ResrNo,AirlineID");
+			
+
+			connectAndQuery("INSERT INTO Reservation VALUES (777, '2014-04-01 16:50:45', 100, 1000, NULL, 1008);","");
+			connectAndQuery("INSERT INTO Includes VALUES (777, 'AA', 111, 1, '2014-04-10');",""); 
+			connectAndQuery("INSERT INTO Includes VALUES (777, 'AA', 888, 1, '2014-04-22');",""); 
+			connectAndQuery("INSERT INTO ReservationPassenger VALUES(777, 1, 1008, '10B', 'First', 'Steak');","");
+			
+
+			connectAndQuery("DELETE FROM Includes WHERE ResrNo = 555",""); 
+			connectAndQuery("DELETE FROM ReservationPassenger WHERE ResrNo = 555",""); 
+			connectAndQuery("DELETE FROM Reservation WHERE ResrNo = 555",""); 
+			*/
+			connectAndQuery("select * from Reservation","ResrNo,AccountNo");
+			connectAndQuery("select * from ReservationPassenger","ResrNo,Id");
+			connectAndQuery("select * from Includes","ResrNo,AirlineID");
 
 			/*
 			//Customer representative level transactions

@@ -158,23 +158,22 @@
 		<!-- FLIGHT SEARCH BOX -->
 					<div class = "searchElements">
 						<p>Search for flight:</p>
-						<form>
+						<form method="post" action="searchHandler.php" class = "flightSearchForm">
 							<input type="radio" name="flightType" value="OneWay">One Way
 							<input type="radio" name="flightType" value="Roundtrip">Round Trip
 							<input type="radio" name="flightType" value="MultiCity">Multi City
-						</form>
-						<form class = "flightSearchForm">
-							Flying From: <input type="text" name="Departure">
-							Flying To: <input type="text" name="Arrival"><br>
-						</form>
-						<br>
-						<p>Departure Date: <input type="date" name="date" id="date" value="" />
-						Arrival Date: <input type="date" name="date" id="date" value="" /></p>
-						<br>
+						</br>					
+						<br></br>
+						Flying From: <input type="text" name="Departure">
+						Flying To: <input type="text" name="Arrival"><br>
+						<br></br>
+						Departure Date: <input type="date" name="depDate" id="date" value="" />
+						Arrival Date: <input type="date" name="arrDate" id="date" value="" />
+						<br></br>
 						Tickets: <input type="number" name="quantity" min="1" max="20" value = "1">
-						<br>
-						<form action = "pages/flightResult.html">
-							<input id = "searchButton" type="submit" value="Search">
+						<br></br>
+						
+						<input id = "searchButton" type="submit" value="Search">
 						</form>
 					</div>
 				</div>
