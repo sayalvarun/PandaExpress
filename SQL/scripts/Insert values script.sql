@@ -33,6 +33,9 @@ values ('AA', '111', '100', '1010100',1,30),
 ('JB', '111', '150', '1111111',1,45),
 ('AM', '1337', '33', '0000011',2,15);
 
+insert into Flight values ('AA', 101,200,'1001001',3,35);
+insert into Leg values ('AA', 101, 1,'LAX','LGA','2011-01-06 09:00:00', '2011-01-06 04:00:00', '2011-01-06 09:10:00', '2011-01-06 04:00:00');
+
 insert into Person (Id, FirstName, LastName, Address, City, State, ZipCode)
 values
 (1, 'Jane', 'Smith', '100 Nicolls Rd', 'Stony Brook', 'New York', 11790), 
