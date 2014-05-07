@@ -20,10 +20,10 @@
 	$result = mysqli_query($con, $query);
 	$row = mysqli_fetch_array($result);
 	$accNo = $row['accountno'];
-	echo($accNo);
+	//echo($accNo);
 	
 	//get reservation infos
-	$query = "SELECT resrno, totalfare, airlineid, flightno, depairportid, arrairportid, deptime, arrtime
+	$query = "SELECT resrno, airlineid, flightno, depairportid, deptime, arrairportid, arrtime, totalfare
 				FROM reservation
 					NATURAL JOIN includes
 					NATURAL JOIN leg
@@ -33,6 +33,6 @@
 	
 	while($row = mysqli_fetch_array($result))
 	{
-		echo("\n".$row['resrno']." ".$row['totalfare']." ".$row['airlineid']." ".$row['flightno']." ".$row['depairportid']." ".$row['arrairportid']." ".$row['deptime']." ".$row['arrtime']);
+		echo("~".$row['resrno']."|".$row['airlineid']."|".$row['flightno']."|".$row['depairportid']."|".$row['deptime']."|".$row['arrairportid']."|".$row['arrtime'])."|".$row['totalfare'];
 	}
 ?>

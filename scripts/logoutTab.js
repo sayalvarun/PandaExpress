@@ -1,5 +1,5 @@
 var openedTab = false;
-var pages = ["Home", "View Profile", "Customize Profile"];
+var pages = ["Search Flights", "View Profile", "Customize Profile"];
 var currPage = "index";
 function clickedUsername()
 {

@@ -49,7 +49,23 @@
 						username:document.getElementById("user").innerHTML
 					},
 					function(data,status){
-						alert(data);
+						data = data.split("~");
+						for(i = 0; i < data.length; i++)
+						{
+							cols = data[i].split("|");
+							if(new Date(cols[4])>=new Date())
+								table=document.getElementById("currResr");
+							else
+								table=document.getElementById("pastResr");
+							row=document.createElement("tr");
+							table.appendChild(row);
+							for(j = 0; j < cols.length; j++)
+							{
+								ele=document.createElement("td");
+								ele.innerHTML=cols[j];
+								row.appendChild(ele);
+							}
+						}
 					});
 				});
 			});
@@ -186,7 +202,7 @@
 			<!-- Collect the nav links, forms, and other content for toggling -->
 			<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 				<ul class="nav navbar-nav">
-					<li><a href="#">Book Flight</a></li>
+					<li><a onclick="changePage('index', 0);">Book Flight</a></li>
 					<!--<li><a href="#">Link</a></li>
 					<li class="dropdown">
 						<a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown <b class="caret"></b></a>
@@ -228,7 +244,7 @@
 		  </div><!-- /.container-fluid -->
 		</nav>
 		<div id="header">
-			<h1 id="companyName"> Panda Express </h1>
+			<h1 id="companyName">Search Flights</h1>
 		</div>
 		<br />
 		<div class = "searchAreaBorder">
@@ -272,66 +288,38 @@
 						<p> Credit Card: <span id="vCC">123456789100</span></p>
 						<!-- ---------CURRENT RESERVATION----------- -->
 						<div class="reservations">
-							<table class="table">
+							<table class="table" id="currResr">
 								<tr>
-									<td colspan="6" class="header">Current Reservations</td>
+									<td colspan="8" class="header">Current Reservations</td>
 								</tr>
 								<tr>
 									<td>Reservation Number</td>
-									<td>Departure City</td>
-									<td>Arrival City</td>
+									<td>Airline</td>
+									<td>Flight Number</td>
+									<td>Departure Airport</td>
 									<td>Departure Time</td>
+									<td>Arrival Airport</td>
 									<td>Arrival Time</td>
 									<td>Price</td>
-								</tr>
-								<tr>
-									<td>111</td>
-									<td>Atlanta</td>
-									<td>Boston</td>
-									<td>5:40:00</td>
-									<td>7:40:00</td>
-									<td>$1245</td>
-								</tr>
-								<tr>
-									<td>512</td>
-									<td>New York</td>
-									<td>London</td>
-									<td>3:30:00</td>
-									<td>6:00:00</td>
-									<td>$1245</td>
 								</tr>
 							</table>
 						</div>
 						<br />
 						<!-- --------PAST RESERVATIONS------------ -->
 						<div class="reservations">
-							<table class="table">
+							<table class="table" id="pastResr">
 								<tr>
-									<td colspan="6" class="header">Previous Flights</td>
+									<td colspan="8" class="header">Previous Flights</td>
 								</tr>
 								<tr>
 									<td>Reservation Number</td>
-									<td>Departure City</td>
-									<td>Arrival City</td>
+									<td>Airline</td>
+									<td>Flight Number</td>
+									<td>Departure Airport</td>
 									<td>Departure Time</td>
+									<td>Arrival Airport</td>
 									<td>Arrival Time</td>
 									<td>Price</td>
-								</tr>
-								<tr>
-									<td>111</td>
-									<td>Atlanta</td>
-									<td>Boston</td>
-									<td>5:40:00</td>
-									<td>7:40:00</td>
-									<td>$12456</td>
-								</tr>
-								<tr>
-									<td>512</td>
-									<td>New York</td>
-									<td>London</td>
-									<td>3:30:00</td>
-									<td>6:00:00</td>
-									<td>$1245</td>
 								</tr>
 							</table>
 						</div>
