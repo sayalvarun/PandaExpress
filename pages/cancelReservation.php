@@ -128,7 +128,6 @@
 				{
 					$dataStr .= "~".$row['resrno']."|".$row['airlineid']."|".$row['flightno']."|".$row['depairportid']."|".$row['deptime']."|".$row['arrairportid']."|".$row['arrtime']."|".$row['totalfare'];
 				}
-				echo($dataStr);
 				echo("<script type='text/javascript'>
 						setTables('".$dataStr."');
 					  </script>");

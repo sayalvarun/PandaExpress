@@ -21,49 +21,31 @@
 					<span class="icon-bar"></span>
 					<span class="icon-bar"></span>
 				</button>
-				<span id="logo" class="navbar-brand" onclick="changePage('index', 0);">PandaExpress</span>
+				<span id="logo" class="navbar-brand">PandaExpress</span>
 			</div>
 
 			<!-- Collect the nav links, forms, and other content for toggling -->
 			<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 				<ul class="nav navbar-nav">
-					<li><a href="#">Book Flight</a></li>
-					<!--<li><a href="#">Link</a></li>
-					<li class="dropdown">
-						<a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown <b class="caret"></b></a>
-						<ul class="dropdown-menu">
-							<li><a href="#">Action</a></li>
-							<li><a href="#">Another action</a></li>
-							<li><a href="#">Something else here</a></li>
-							<li class="divider"></li>
-							<li><a href="#">Separated link</a></li>
-						</ul>
-					</li>
-				-->
+					<li><a href="../index.php">Book Flight</a></li>
 				</ul>
-				<!--<form class="navbar-form navbar-left" role="search">
-					<div class="form-group">
-						<input type="text" class="form-control" placeholder="Search">
-					</div>
-					<button type="submit" class="btn btn-default">Submit</button>
-				</form>
-				-->
 				<ul class="nav navbar-nav navbar-right">
 					<li><a href="#">Help</a></li>
 					<li id="loginButton"><a href="login.php">Login</a></li>
 					<li class="dropdown" id="userDropdown">
 						<a href="#" class="dropdown-toggle" data-toggle="dropdown"><span id="user">-insert Username here-</span><b class="caret"></b></a>
 						<ul class="dropdown-menu">
-							<li><a id="viewTab" onclick="changePage('viewProf', 1)">View Profile</a></li>
+							<li><a href="viewProfile.php">View Profile</a></li>
 							<li class="divider"></li>
-							<li><a id="customizeTab" onclick="changePage('customize', 2)">Customize Profile</a></li>
+							<li><a href="customizeProfile.php">Customize Profile</a></li>
 							<li class="divider"></li>
-							<li><a href="pages/auctions.html">Auctions</a></li>
+							<li><a href="auctions.html">Auctions</a></li>
 							<li class="divider"></li>
-							<li><a href="../index.html">Log Out</a></li>
-							<!--<li class="divider"></li>
-							<li><a href="#">One more separated link</a></li>
-							-->
+							<li><a href="cancelReservation.php">Cancel Reservation</a></li>
+							<li class="divider"></li>
+							<li><a href="managerial.php">Manage</a></li>
+							<li class="divider"></li>
+							<li><a href="../scripts/logout.php">Log Out</a></li>
 						</ul>
 					</li>
 				</ul>

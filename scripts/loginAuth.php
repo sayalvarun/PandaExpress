@@ -9,7 +9,7 @@
 	}
 	
 	if(empty($_POST["username"]) || empty($_POST["password"]))
-		header("Location:pages/login.php");
+		header("Location:../pages/login.php");
 	else
 	{
 		$cmd="SELECT * FROM Logins 
@@ -21,7 +21,7 @@
 			header("Location:../pages/login.php");
 		else
 		{
-			$expire=time()+60*5;
+			$expire=time()+60*60;
 			$user = $_POST["username"];
 			setcookie("user", $user, $expire, "/");
 			echo($user);

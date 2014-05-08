@@ -3,8 +3,7 @@
 		<title>Panda Express!</title>
 		<link rel="stylesheet" type="text/css" href="styles/searchHandler.css">
 		
-		
-		<link rel="stylesheet" type="text/css" href="styles/profile.css">
+		<link rel="stylesheet" type="text/css" href="styles/index.css">
 		<link rel="stylesheet" type="text/css" href="styles/css/bootstrap.css">  
 		
 		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
@@ -23,13 +22,13 @@
 					<span class="icon-bar"></span>
 					<span class="icon-bar"></span>
 				</button>
-				<span id="logo" class="navbar-brand" onclick="changePage('index', 0);">PandaExpress</span>
+				<span id="logo" class="navbar-brand">PandaExpress</span>
 			</div>
 
 			<!-- Collect the nav links, forms, and other content for toggling -->
 			<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 				<ul class="nav navbar-nav">
-					<li><a href="#">Book Flight</a></li>
+					<li><a href="index.php">Book Flight</a></li>
 					<!--<li><a href="#">Link</a></li>
 					<li class="dropdown">
 						<a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown <b class="caret"></b></a>
@@ -52,20 +51,21 @@
 				-->
 				<ul class="nav navbar-nav navbar-right">
 					<li><a href="#">Help</a></li>
-					<li id="loginButton"><a href="login.php">Login</a></li>
+					<li id="loginButton"><a href="pages/login.php">Login</a></li>
 					<li class="dropdown" id="userDropdown">
 						<a href="#" class="dropdown-toggle" data-toggle="dropdown"><span id="user">-insert Username here-</span><b class="caret"></b></a>
 						<ul class="dropdown-menu">
-							<li><a id="viewTab" onclick="changePage('viewProf', 1)">View Profile</a></li>
+							<li><a href="pages/viewProfile.php">View Profile</a></li>
 							<li class="divider"></li>
-							<li><a id="customizeTab" onclick="changePage('customize', 2)">Customize Profile</a></li>
+							<li><a href="pages/customizeProfile.php">Customize Profile</a></li>
 							<li class="divider"></li>
 							<li><a href="pages/auctions.html">Auctions</a></li>
 							<li class="divider"></li>
-							<li><a href="index.html">Log Out</a></li>
-							<!--<li class="divider"></li>
-							<li><a href="#">One more separated link</a></li>
-							-->
+							<li><a href="pages/cancelReservation.php">Cancel Reservation</a></li>
+							<li class="divider"></li>
+							<li><a href="pages/managerial.php">Manage</a></li>
+							<li class="divider"></li>
+							<li><a href="scripts/logout.php">Log Out</a></li>
 						</ul>
 					</li>
 				</ul>
@@ -85,6 +85,8 @@
 					$user = $_COOKIE["user"];
 					resetPage();
 				}	
+				else
+					header("Location:login.php");
 			}
 			function resetPage()
 			{
@@ -235,7 +237,9 @@
 					<input id = "searchButton" type="submit" value="Book">
 				</form>
 			</div>
-		
+		<?php
+			setUserName();
+		?>
 
 	</body>
 </html>
