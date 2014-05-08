@@ -6,6 +6,7 @@
 		<link rel="stylesheet" type="text/css" href="../styles/profile.css">
 		<link rel="stylesheet" type="text/css" href="../styles/css/bootstrap.css">  
 		<link rel="stylesheet" type="text/css" href="../styles/index.css">
+		
 		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
 		<script src="../scripts/js/bootstrap.js"></script>
 		<script src="../scripts/logoutTab.js"></script>
@@ -80,13 +81,12 @@
 		</nav>
 		
 		<div id="header">
-			<h1> Auctions: </h1>
+			<h1> Auctions </h1>
 			
 		</div>
 		<div class = "searchAreaBorder">
 			<div class = "searchArea">
 				<?php
-				echo "Previous Auctions:";
 				$con = mysqli_connect("localhost", "root", "", "PandaExpress"); 
 				if (mysqli_connect_errno()) {
 			  		echo "Failed to connect to MySQL: " . mysqli_connect_error();
@@ -119,11 +119,14 @@
 				function printResults($data, $parameters){
 					
 					if(count($data)>0){
-							Print "<table class = 'phpTable'; border cellpadding=3>";
+							Print "<table class = 'table'; border cellpadding=3>
+									<tr><td class='header' colspan=7>Previous Auctions</td></tr>
+									<tr>";
+							
 							foreach($parameters as &$value){					
-								Print "<th>".$value.":</th> ";
+								Print "<td>".$value."</td> ";
 							}
-	
+							Print "</tr>";
 							while($row = mysqli_fetch_array($data)) 
 							{
 								Print "<tr class = 'resultTableRow'>";
@@ -132,7 +135,7 @@
 								foreach($parameters as &$value){					
 								Print "<td>".$row[$value] . "</td> ";
 								}	
-								Print "<tr>";
+								Print "</tr>";
 							}	
 							Print "</table>";
 					}
@@ -143,7 +146,7 @@
 				?>
 				
 				<form method="post" action="auctionSearcher.php" class = "flightSearchForm">
-					<p>Search for auctions:</p>
+					<div>Search for auctions:</div>
 					Enter Destination Airport:<input id="auctionSearch" type="text" name="auctionSearch">
 					<input id = "searchButton" type="submit" value="Search">
 				</form>

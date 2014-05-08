@@ -3,6 +3,7 @@
 		<link rel="stylesheet" type="text/css" href="../styles/searchHandler.css">
 		<link rel="stylesheet" type="text/css" href="../styles/profile.css">
 		<link rel="stylesheet" type="text/css" href="../styles/css/bootstrap.css">  
+		<link rel="stylesheet" type="text/css" href="../styles/index.css">
 		
 		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
 		<script src="../scripts/js/bootstrap.js"></script>
@@ -77,11 +78,10 @@
 		</nav>
 		
 		<div id="header">
-			<h1> Search Results: </h1>
+			<h1> Auction </h1>
 		</div>
-		<div class = "orange">
-			<div class = "info">
-				Results:
+		<div class = "searchAreaBorder">
+			<div class = "searchArea">
 				<?php
 					if(isset($_POST["bidAmount"]) and !empty($_POST["bidAmount"])){
 						$bidAmount = $_POST["bidAmount"];
@@ -98,7 +98,7 @@
 					
 					
 					if((int) $hiddenAmount < (int) $bidAmount){
-						echo "Bid is over the hidden fee, reserving flight";
+						echo "Your flight has been reserved.";
 						$departureArray = explode(",", $departureInfo);
 						
 						$con = mysqli_connect("localhost", "root", "", "PandaExpress"); 
@@ -127,10 +127,12 @@
 						$data = mysqli_query($con,$cmd);
 						$cmd = "INSERT INTO Includes VALUES (".$openNumber.", '".$departureArray[0]."', ".$departureArray[1].", 1, date(NOW()));"; 
 						$data = mysqli_query($con,$cmd);
+						$cmd = "INSERT INTO Auctions values (".$accountNo.", '".$departureArray[0]."', '".$departureArray[1]."' , 'Economy' , date((NOW())),".$bidAmount.", '1');";
+						$data = mysqli_query($con,$cmd);
 					}
 					else{
-						echo "<script type = text/javascript> alert(\"insufficient funds\") </script>";
-						header('Location: auctions.php');
+						echo "Bidding Failed : Insufficient funds.";
+						//header('Location: auctions.php');
 					}
 					
 					
@@ -145,9 +147,6 @@
 					$params = "AirlineID,FlightNo,DepAirportID,ArrAirportID,DepTime,ArrTime";
 					$parameters = explode(",",$params);
 					$data = mysqli_query($con,$cmd);
-					
-					
-					
 				?>
 			</div>
 		<?php setUserName(); ?>
