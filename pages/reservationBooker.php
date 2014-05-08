@@ -30,7 +30,7 @@
 					<li><a href="../index.php">Book Flight</a></li>
 				</ul>
 				<ul class="nav navbar-nav navbar-right">
-					<li><a href="#">Help</a></li>
+					<li><a href="help.php">Help</a></li>
 					<li id="loginButton"><a href="login.php">Login</a></li>
 					<li class="dropdown" id="userDropdown">
 						<a href="#" class="dropdown-toggle" data-toggle="dropdown"><span id="user">-insert Username here-</span><b class="caret"></b></a>

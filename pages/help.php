@@ -1,11 +1,7 @@
-<html>
-	<head>
-		<title>Panda Express!</title>
-		<link rel="stylesheet" type="text/css" href="../styles/searchHandler.css">
-		
+<link rel="stylesheet" type="text/css" href="../styles/reservationBooker.css">
 		<link rel="stylesheet" type="text/css" href="../styles/profile.css">
-		<link rel="stylesheet" type="text/css" href="../styles/css/bootstrap.css">  
 		<link rel="stylesheet" type="text/css" href="../styles/index.css">
+		<link rel="stylesheet" type="text/css" href="../styles/css/bootstrap.css">  
 		
 		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
 		<script src="../scripts/js/bootstrap.js"></script>
@@ -24,8 +20,6 @@
 					$user = $_COOKIE["user"];
 					resetPage();
 				}	
-				else
-					header("location:login.php");
 			}
 			function resetPage()
 			{
@@ -66,7 +60,7 @@
 							<li class="divider"></li>
 							<li><a href="customizeProfile.php">Customize Profile</a></li>
 							<li class="divider"></li>
-							<li><a href="auctions.php">Auctions</a></li>
+							<li><a href="auctions.html">Auctions</a></li>
 							<li class="divider"></li>
 							<li><a href="cancelReservation.php">Cancel Reservation</a></li>
 							<li class="divider"></li>
@@ -81,76 +75,32 @@
 		</nav>
 		
 		<div id="header">
-			<h1> Auctions </h1>
-			
+			<h1 id="companyName"> FAQ </h1>
 		</div>
 		<div class = "searchAreaBorder">
-			<div class = "searchArea">
-				<?php
-				$con = mysqli_connect("localhost", "root", "", "PandaExpress"); 
-				if (mysqli_connect_errno()) {
-			  		echo "Failed to connect to MySQL: " . mysqli_connect_error();
-				}
-				
-				if(isset($_COOKIE["user"])){
-					$username = $_COOKIE["user"];
-				}
-				
-				$cmd = "select C.AccountNo from customer C, logins L
-				where C.id = L.id AND L.username = '".$_COOKIE["user"]."';";
-				
-				$data = mysqli_query($con,$cmd);
-		
-				while($row = mysqli_fetch_array($data)) {
-					$accountNo = (int) $row["AccountNo"];
-				}
-	
-				
-				$cmd = "select * from auctions where AccountNo ='".$accountNo."';";
-		
-					$params = "AccountNo,AirlineID,FlightNo,Class,Date,NYOP,Accepted";
-					$parameters = explode(",",$params);
-					$data = mysqli_query($con,$cmd);
-					
-					
-					printResults($data, $parameters);
-				
-				
-				function printResults($data, $parameters){
-					
-					if(count($data)>0){
-							Print "<table class = 'table'; border cellpadding=3>
-									<tr><td class='header' colspan=7>Previous Auctions</td></tr>
-									<tr>";
+			<div class = "searchArea">		
+					<h2>What is a reverse auction?</h2>
+						<p> A reverse auction is a different way of reserving flights! It allows the customer to 'Name Your Own Price' 
+						allowing users to bid an amount they are willing to pay for a flight. If you bid higher than the hidden fee
+						for a flight (the cheapest price allowable for a ticket), it is yours!</p>
+						
+				<h2>Do I need a credit card on file to purchase tickets?</h2>
+						<p> We do require customers list they're preferred credit card before purchasing their ticket. This facilitates
+							quicker reservation processing and allows us to better serve the customer.</p>
 							
-							foreach($parameters as &$value){					
-								Print "<td>".$value."</td> ";
-							}
-							Print "</tr>";
-							while($row = mysqli_fetch_array($data)) 
-							{
-								Print "<tr class = 'resultTableRow'>";
-								//echo $row['Id'] . " " . $row['Name'];
-								//echo "<br>";
-								foreach($parameters as &$value){					
-								Print "<td>".$row[$value] . "</td> ";
-								}	
-								Print "</tr>";
-							}	
-							Print "</table>";
-					}
-					else{
-						echo "Empty result";
-					}
-				}
-				?>
-				
-				<form method="post" action="auctionSearcher.php" class = "flightSearchForm">
-					<div>Search for auctions:</div>
-					Enter Destination Airport:<input id="auctionSearch" type="text" name="auctionSearch">
-					<input id = "searchButton" type="submit" value="Search">
-				</form>
+				<h2>Do I need a credit card on file to create an account?</h2>
+						<p> We do require customers list they're preferred credit card before purchasing their ticket. This facilitates
+							quicker reservation processing and allows us to better serve the customer.</p>
+				<h2>How can I see the list of flights I've been on?</h2>
+						<p>Clicking on your username will show a drop down menu. Click on "View Profile". This will show a table of listing
+						all your previous reservations and a table listing all of your current reservations.</p>
+				<h2>The email address  you have on file is wrong so I'm not getting any promotional deals. How do I fix this?</h2>
+						<p>Clicking on your username will show a drop down menu. Click on "Customize Profile". This will allow you to change
+						your email address as well as other personal informations.</p>
+				<h2>Your FAQ didn't answer any of my questions. Who should I contact?</h2>
+						<p>Call our hotline at 1-(631)-PANDA-EX for more direct help.</p> 
 			</div>
-			<?php setUserName(); ?>
+		</div>	
+		<?php setUserName(); ?>
 	</body>
 </html>
