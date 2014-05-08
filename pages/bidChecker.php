@@ -1,18 +1,16 @@
 <html>
 	<head>
-		<title>Panda Express!</title>
 		<link rel="stylesheet" type="text/css" href="../styles/searchHandler.css">
-		
 		<link rel="stylesheet" type="text/css" href="../styles/profile.css">
 		<link rel="stylesheet" type="text/css" href="../styles/css/bootstrap.css">  
-		<link rel="stylesheet" type="text/css" href="../styles/index.css">
+		
 		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
 		<script src="../scripts/js/bootstrap.js"></script>
 		<script src="../scripts/logoutTab.js"></script>
 		<link rel="stylesheet" type="text/css" href="../styles/logoutTab.css">
 		
 		<?php
-			$con = null;
+		$con = null;
 			$user = null;
 			
 			function setUserName()
@@ -23,8 +21,6 @@
 					$user = $_COOKIE["user"];
 					resetPage();
 				}	
-				else
-					header("location:login.php");
 			}
 			function resetPage()
 			{
@@ -34,8 +30,9 @@
 					  </script>");
 			}
 		?>
+		
 	</head>
-
+		
 	<body>
 		<nav class="navbar navbar-default" role="navigation">
 		  <div class="container-fluid">
@@ -80,74 +77,79 @@
 		</nav>
 		
 		<div id="header">
-			<h1> Auctions: </h1>
-			
+			<h1> Search Results: </h1>
 		</div>
-		<div class = "searchAreaBorder">
-			<div class = "searchArea">
+		<div class = "orange">
+			<div class = "info">
+				Results:
 				<?php
-				echo "Previous Auctions:";
-				$con = mysqli_connect("localhost", "root", "", "PandaExpress"); 
-				if (mysqli_connect_errno()) {
-			  		echo "Failed to connect to MySQL: " . mysqli_connect_error();
-				}
+					if(isset($_POST["bidAmount"]) and !empty($_POST["bidAmount"])){
+						$bidAmount = $_POST["bidAmount"];
+					}
+					if(isset($_POST["hiddenAmount"]) and !empty($_POST["hiddenAmount"])){
+						$hiddenAmount = $_POST["hiddenAmount"];
+					}
+					if(isset($_POST["DepartureInfo"]) and !empty($_POST["DepartureInfo"])){
+						$departureInfo = $_POST["DepartureInfo"];
+					}
+					if(isset($_COOKIE["user"]) and !empty($_COOKIE["user"])){
+						$username = $_COOKIE["user"];
+					}
+					
+					
+					if((int) $hiddenAmount < (int) $bidAmount){
+						echo "Bid is over the hidden fee, reserving flight";
+						$departureArray = explode(",", $departureInfo);
+						
+						$con = mysqli_connect("localhost", "root", "", "PandaExpress"); 
+						if (mysqli_connect_errno()) {
+							echo "Failed to connect to MySQL: " . mysqli_connect_error();
+						}
+						
+						$cmd = "select max(ResrNo) as maxResrNo from reservation;";
+							
+						$data = mysqli_query($con,$cmd);
+					
+						while($row = mysqli_fetch_array($data)) {
+							$openNumber = (int) $row["maxResrNo"] + 1;
+						}
+						
+						$cmd = "select C.AccountNo from customer C, logins L
+								where C.id = L.id AND L.username = '".$_COOKIE["user"]."';";
 				
-				if(isset($_COOKIE["user"])){
-					$username = $_COOKIE["user"];
-				}
-				
-				$cmd = "select C.AccountNo from customer C, logins L
-				where C.id = L.id AND L.username = '".$_COOKIE["user"]."';";
-				
-				$data = mysqli_query($con,$cmd);
+								$data = mysqli_query($con,$cmd);
 		
-				while($row = mysqli_fetch_array($data)) {
-					$accountNo = (int) $row["AccountNo"];
-				}
-	
-				
-				$cmd = "select * from auctions where AccountNo ='".$accountNo."';";
+								while($row = mysqli_fetch_array($data)) {
+									$accountNo = (int) $row["AccountNo"];
+						}
+						
+						$cmd = "INSERT INTO Reservation VALUES (".$openNumber.", NOW(), 100, ".$bidAmount.", NULL, ".$accountNo.");";
+						$data = mysqli_query($con,$cmd);
+						$cmd = "INSERT INTO Includes VALUES (".$openNumber.", '".$departureArray[0]."', ".$departureArray[1].", 1, date(NOW()));"; 
+						$data = mysqli_query($con,$cmd);
+					}
+					else{
+						echo "<script type = text/javascript> alert(\"insufficient funds\") </script>";
+						header('Location: auctions.php');
+					}
+					
+					
+					
+					$con = mysqli_connect("localhost", "root", "", "PandaExpress"); 
+					if (mysqli_connect_errno()) {
+						echo "Failed to connect to MySQL: " . mysqli_connect_error();
+					}
+					
+					$cmd = "select ";
 		
-					$params = "AccountNo,AirlineID,FlightNo,Class,Date,NYOP,Accepted";
+					$params = "AirlineID,FlightNo,DepAirportID,ArrAirportID,DepTime,ArrTime";
 					$parameters = explode(",",$params);
 					$data = mysqli_query($con,$cmd);
 					
 					
-					printResults($data, $parameters);
-				
-				
-				function printResults($data, $parameters){
 					
-					if(count($data)>0){
-							Print "<table class = 'phpTable'; border cellpadding=3>";
-							foreach($parameters as &$value){					
-								Print "<th>".$value.":</th> ";
-							}
-	
-							while($row = mysqli_fetch_array($data)) 
-							{
-								Print "<tr class = 'resultTableRow'>";
-								//echo $row['Id'] . " " . $row['Name'];
-								//echo "<br>";
-								foreach($parameters as &$value){					
-								Print "<td>".$row[$value] . "</td> ";
-								}	
-								Print "<tr>";
-							}	
-							Print "</table>";
-					}
-					else{
-						echo "Empty result";
-					}
-				}
 				?>
-				
-				<form method="post" action="auctionSearcher.php" class = "flightSearchForm">
-					<p>Search for auctions:</p>
-					Enter Destination Airport:<input id="auctionSearch" type="text" name="auctionSearch">
-					<input id = "searchButton" type="submit" value="Search">
-				</form>
 			</div>
-			<?php setUserName(); ?>
-	</body>
+		<?php setUserName(); ?>
+	</body>	
 </html>

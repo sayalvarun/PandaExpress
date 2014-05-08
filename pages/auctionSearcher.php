@@ -1,18 +1,16 @@
 <html>
 	<head>
-		<title>Panda Express!</title>
 		<link rel="stylesheet" type="text/css" href="../styles/searchHandler.css">
-		
 		<link rel="stylesheet" type="text/css" href="../styles/profile.css">
 		<link rel="stylesheet" type="text/css" href="../styles/css/bootstrap.css">  
-		<link rel="stylesheet" type="text/css" href="../styles/index.css">
+		
 		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
 		<script src="../scripts/js/bootstrap.js"></script>
 		<script src="../scripts/logoutTab.js"></script>
 		<link rel="stylesheet" type="text/css" href="../styles/logoutTab.css">
 		
 		<?php
-			$con = null;
+		$con = null;
 			$user = null;
 			
 			function setUserName()
@@ -23,8 +21,6 @@
 					$user = $_COOKIE["user"];
 					resetPage();
 				}	
-				else
-					header("location:login.php");
 			}
 			function resetPage()
 			{
@@ -34,6 +30,22 @@
 					  </script>");
 			}
 		?>
+		
+		<script type="text/javascript">
+			function myFunction(row, parameters, identifier){
+				var formInput = '';
+				
+				for(i=0; i<row.cells.length; i++){
+					formInput = formInput + row.cells[i].innerHTML + ",";
+				}
+			
+			
+				
+				document.getElementById('DepartureInfo').value=formInput;
+				document.getElementById('hiddenAmount').value=identifier;
+				
+			}
+		</script>
 	</head>
 
 	<body>
@@ -80,43 +92,56 @@
 		</nav>
 		
 		<div id="header">
-			<h1> Auctions: </h1>
-			
+			<h1> Search Results: </h1>
 		</div>
-		<div class = "searchAreaBorder">
-			<div class = "searchArea">
+		<div class = "orange">
+			<div class = "info">
+				Results:
 				<?php
-				echo "Previous Auctions:";
-				$con = mysqli_connect("localhost", "root", "", "PandaExpress"); 
-				if (mysqli_connect_errno()) {
-			  		echo "Failed to connect to MySQL: " . mysqli_connect_error();
-				}
-				
-				if(isset($_COOKIE["user"])){
-					$username = $_COOKIE["user"];
-				}
-				
-				$cmd = "select C.AccountNo from customer C, logins L
-				where C.id = L.id AND L.username = '".$_COOKIE["user"]."';";
-				
-				$data = mysqli_query($con,$cmd);
+					if(isset($_POST["auctionSearch"]) and !empty($_POST["auctionSearch"])){
+						$searchDest = $_POST["auctionSearch"];
+					}
+					
+					$con = mysqli_connect("localhost", "root", "", "PandaExpress"); 
+					if (mysqli_connect_errno()) {
+						echo "Failed to connect to MySQL: " . mysqli_connect_error();
+					}
+					
+					$cmd = "SELECT F.Fare
+							FROM Fare F, Leg L
+							WHERE L.AirlineID = F.AirlineID
+							AND L.flightNo = F.flightNo
+							AND L.ArrAirportID =  '".$searchDest."' AND F.FareType = 'HIDDEN';";
 		
-				while($row = mysqli_fetch_array($data)) {
-					$accountNo = (int) $row["AccountNo"];
-				}
-	
-				
-				$cmd = "select * from auctions where AccountNo ='".$accountNo."';";
+					$params = "Fare";
+					$data = mysqli_query($con,$cmd);
+					
+					while($row = mysqli_fetch_array($data)) 
+					{
+						$hiddenFare = (int) $row[$params];
+					}
+					
+					$cmd = "SELECT L.AirlineID, L.FlightNo, L.DepAirportID, L.ArrAirportID, L.DepTime, L.ArrTime
+							FROM Fare F, Leg L
+							WHERE L.AirlineID = F.AirlineID
+							AND L.flightNo = F.flightNo
+							AND L.ArrAirportID =  '".$searchDest."' AND F.FareType = 'HIDDEN';";
 		
-					$params = "AccountNo,AirlineID,FlightNo,Class,Date,NYOP,Accepted";
+					$params = "AirlineID,FlightNo,DepAirportID,ArrAirportID,DepTime,ArrTime";
 					$parameters = explode(",",$params);
 					$data = mysqli_query($con,$cmd);
 					
+					if(mysqli_num_rows($data) == 0){
+						print "<h1>No results found!</h1>";
+					}
+					else{
+						printResults($data, $parameters, $hiddenFare);
+					}
 					
-					printResults($data, $parameters);
+					
 				
-				
-				function printResults($data, $parameters){
+
+				function printResults($data, $parameters,$hiddenFare){
 					
 					if(count($data)>0){
 							Print "<table class = 'phpTable'; border cellpadding=3>";
@@ -126,7 +151,7 @@
 	
 							while($row = mysqli_fetch_array($data)) 
 							{
-								Print "<tr class = 'resultTableRow'>";
+								Print "<tr class = 'resultTableRow'; onclick='myFunction(this,\"".implode(",",$parameters)."\",\"".$hiddenFare."\")'>";
 								//echo $row['Id'] . " " . $row['Name'];
 								//echo "<br>";
 								foreach($parameters as &$value){					
@@ -139,15 +164,20 @@
 					else{
 						echo "Empty result";
 					}
-				}
+					
+					
+				}	
 				?>
 				
-				<form method="post" action="auctionSearcher.php" class = "flightSearchForm">
-					<p>Search for auctions:</p>
-					Enter Destination Airport:<input id="auctionSearch" type="text" name="auctionSearch">
-					<input id = "searchButton" type="submit" value="Search">
+				
+				<form method="post" action="bidChecker.php" class = "flightSearchForm">
+					<input id="DepartureInfo" type="text" name="DepartureInfo">
+					Bid:<input id="bidAmount" type="text" name="bidAmount">
+					<input id="hiddenAmount" type="hidden" name="hiddenAmount">
+					<input id = "searchButton" type="submit" value="Bid">
 				</form>
 			</div>
+			
 			<?php setUserName(); ?>
 	</body>
 </html>

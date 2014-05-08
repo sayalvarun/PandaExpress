@@ -83,7 +83,7 @@
 							<li class="divider"></li>
 							<li><a href="pages/customizeProfile.php">Customize Profile</a></li>
 							<li class="divider"></li>
-							<li><a href="pages/auctions.html">Auctions</a></li>
+							<li><a href="pages/auctions.php">Auctions</a></li>
 							<li class="divider"></li>
 							<li><a href="pages/cancelReservation.php">Cancel Reservation</a></li>
 							<li class="divider"></li>
