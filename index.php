@@ -13,20 +13,7 @@
 		<script src="scripts/js/bootstrap.js"></script>
 		<script src="scripts/logoutTab.js"></script>
 		<script type="text/javascript">
-			$(document).ready(function(){
-				$("#customizeTab").click(function(){
-					$.post("scripts/UserInfoQueries.php",
-					{
-						username:document.getElementById("user").innerHTML,
-					},
-					function(data,status){
-						data = data.split("~");
-						fields = document.getElementsByClassName("cProf");
-						for(i = 0; i < data.length; i++)
-							fields[i].value = data[i];
-					});
-				});
-				
+			$(document).ready(function(){			
 				$("#viewTab").click(function(){
 					$.post("scripts/UserInfoQueries.php",
 					{
@@ -73,9 +60,6 @@
 		<?php
 			$con = null;
 			$user = null;
-			$prevPage = "Home";
-			$rate = $fname = $lname = $addr = $city = $state = $zip = $email = $credit = null;
-			$fnameErr = $lnameErr = $addrErr = $cityErr = $stateErr = $zipErr = $emailErr = null;
 			
 			function setUserName()
 			{
@@ -86,104 +70,12 @@
 					resetPage();
 				}	
 			}
-			
-			function startPage()
-			{
-				global $prevPage;
-				if ($_SERVER["REQUEST_METHOD"] == "POST")
-				{
-					$prevPage = $_POST["page"];
-					if($prevPage == "login")
-						login();
-					if($prevPage == "customizeProfile")
-						customize();
-				}
-			}
-			function connectToDB()
-			{
-				global $con;
-				// Create connection
-				$con=mysqli_connect("localhost","root","","pandaexpress");
-
-				// Check connection
-				if (mysqli_connect_errno()) {
-				  echo "Failed to connect to MySQL: " . mysqli_connect_error();
-				}
-				
-			}
-			function login()
-			{
-				global $con, $user;
-				if(empty($_POST["username"]) || empty($_POST["password"]))
-					header("Location:pages/login.php");
-				else
-				{
-					connectToDB();
-					$cmd="SELECT * FROM Logins 
-						  WHERE username='".$_POST["username"]."' 
-						  AND password='".$_POST["password"]."'";
-					
-					$result=mysqli_query($con,$cmd);
-					if(!$result || mysqli_num_rows($result)!=1)
-						header("Location:pages/login.php");
-					else
-					{
-						header("Location:index.php");
-						resetPage();
-					}
-				}
-			}	
-			
 			function resetPage()
 			{
 				global $user;
 				echo("<script type='text/javascript'>
 						resetPage('".$user."');
 					  </script>");
-			}
-			
-			function customize()
-			{
-				global $con, $user;
-				connectToDB();
-				$user = $_POST["user"];
-				//echo($user);
-				//get id
-				$query = "select id from logins where username = '".$user."';";
-				$result = mysqli_query($con, $query);
-				$row = mysqli_fetch_array($result);
-				$id = $row['id'];
-				
-				if(!empty($_POST["fname"]))
-					runUpdates("person", "firstname", $_POST["fname"], $id);
-				if(!empty($_POST["lname"]))
-					runUpdates("person", "lastname", $_POST["lname"], $id);
-				if(!empty($_POST["addr"]))
-					runUpdates("person", "address", $_POST["addr"], $id);
-				if(!empty($_POST["city"]))
-					runUpdates("person", "city", $_POST["city"], $id);
-				if(!empty($_POST["state"]))
-					runUpdates("person", "state", $_POST["state"], $id);
-				if(!empty($_POST["zip"]))
-					runUpdates("person", "zipcode", $_POST["zip"], $id);
-				
-				if(!empty($_POST["cc"]))
-					runUpdates("customer", "creditcardno", $_POST["cc"], $id);
-				if(!empty($_POST["email"]))
-					runUpdates("customer", "email", $_POST["email"], $id);
-				if(!empty($_POST["rate"]))
-					runUpdates("customer", "rating", $_POST["rate"], $id);
-				resetPage();
-				echo("<script type='text/javascript'>
-						alert('Changes Saved');
-					  </script");
-			}
-			
-			function runUpdates($table, $attr, $value, $id)
-			{
-				global $con, $user;
-				$query = "update ".$table." set ".$attr."='".$value."' where id=".$id.";";
-				mysqli_query($con, $query);
 			}
 		?>
 	</head>
@@ -238,7 +130,8 @@
 						<ul class="dropdown-menu">
 							<li><a id="viewTab" onclick="changePage('viewProf', 1)">View Profile</a></li>
 							<li class="divider"></li>
-							<li><a id="customizeTab" onclick="changePage('customize', 2)">Customize Profile</a></li>
+							<li><!--<a id="customizeTab" onclick="changePage('customize', 2)">-->
+								<a href="pages/customizeProfile.php">Customize Profile</a></li>
 							<li class="divider"></li>
 							<li><a href="pages/auctions.html">Auctions</a></li>
 							<li class="divider"></li>
@@ -335,49 +228,6 @@
 						<br />
 					</div>
 				</div>
-<!-- CUSTOMIZE PROFILE STARTS HERE -->
-				<div id ="customize">
-					<div class = "container">
-						<form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
-							<label>First Name <input class="cProf" type="text" name="fname" value="<?php echo $fname; ?>" /></label>
-							<br />
-							<span class="error"><?php echo $fnameErr; ?></span>
-							<br />
-							<label>Last Name <input class="cProf" type="text" name="lname" value="<?php echo $lname; ?>" /></label>
-							<br />
-							<span class="error"><?php echo $lnameErr; ?></span>
-							<br />
-							<label>Address <input class="cProf" type="text" name="addr" value="<?php echo $addr; ?>" /></label>
-							<br />
-							<span class="error"><?php echo $addrErr; ?></span>
-							<br />
-							<label>City <input class="cProf" type="text" name="city" value="<?php echo $city; ?>" /></label>
-							<br />
-							<span class="error"><?php echo $cityErr; ?></span>
-							<br />
-							<label>State <input class="cProf" type="text" name="state" value="<?php echo $state; ?>" /></label>
-							<br />
-							<span class="error"><?php echo $stateErr;?></span>
-							<br />
-							<label>Zip Code <input class="cProf" type="number" name ="zip" value="<?php echo $zip; ?>" min="0" max="99999" /></label>
-							<br />
-							<span class="error"><?php echo $zipErr; ?></span>
-							<br />
-							<br />
-						<!-- FIELDS REQUIRED FOR CUSTOMER TABLE -->	
-							<label>Credit Card <input class="cProf" type="number" name="cc" value="<?php echo $credit; ?>" min="0" max="999999999999" /></label>
-							<br />
-							<label>Email <input class="cProf" type="email" name="email" value="<?php echo $email; ?>" /></label>
-							<br />
-							<label>Rating<input class="cProf" type="number" name="rate" value="<?php echo $rate; ?>" /></label>
-							<input type="hidden" name="page" value="customizeProfile" />
-							<input type="hidden" name="user" id="cUser" />
-							<br />
-							
-							<input type="submit" value="Update">
-						</form>
-					</div>
-				</div>
 			</div>
 		</div>
 <!--
@@ -391,7 +241,7 @@
 			</div>
 		-->
 		<?php 
-			startPage();
+			//startPage();
 			setUsername();
 		?>
 	</body>

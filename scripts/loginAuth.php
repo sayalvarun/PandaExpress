@@ -18,10 +18,10 @@
 		
 		$result=mysqli_query($con,$cmd);
 		if(!$result || mysqli_num_rows($result)!=1)
-			header("Location:pages/login.php");
+			header("Location:../pages/login.php");
 		else
 		{
-			$expire=time()+60;
+			$expire=time()+60*5;
 			$user = $_POST["username"];
 			setcookie("user", $user, $expire, "/");
 			echo($user);
