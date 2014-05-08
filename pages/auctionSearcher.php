@@ -3,8 +3,6 @@
 		<link rel="stylesheet" type="text/css" href="../styles/searchHandler.css">
 		<link rel="stylesheet" type="text/css" href="../styles/profile.css">
 		<link rel="stylesheet" type="text/css" href="../styles/css/bootstrap.css">  
-		<link rel="stylesheet" type="text/css" href="../styles/index.css">
-		
 		
 		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
 		<script src="../scripts/js/bootstrap.js"></script>
@@ -94,10 +92,11 @@
 		</nav>
 		
 		<div id="header">
-			<h1> Search Results </h1>
+			<h1> Search Results: </h1>
 		</div>
-		<div class = "searchAreaBorder">
-			<div class = "searchArea">
+		<div class = "orange">
+			<div class = "info">
+				Results:
 				<?php
 					if(isset($_POST["auctionSearch"]) and !empty($_POST["auctionSearch"])){
 						$searchDest = $_POST["auctionSearch"];
@@ -145,13 +144,11 @@
 				function printResults($data, $parameters,$hiddenFare){
 					
 					if(count($data)>0){
-							Print "<table class = 'table'; border cellpadding=3>
-									<tr><td class='header' colspan=6>Results</td></tr>
-									<tr>";
+							Print "<table class = 'phpTable'; border cellpadding=3>";
 							foreach($parameters as &$value){					
-								Print "<td>".$value."</td> ";
+								Print "<th>".$value.":</th> ";
 							}
-							Print "</tr>";
+	
 							while($row = mysqli_fetch_array($data)) 
 							{
 								Print "<tr class = 'resultTableRow'; onclick='myFunction(this,\"".implode(",",$parameters)."\",\"".$hiddenFare."\")'>";
@@ -162,7 +159,7 @@
 								}	
 								Print "<tr>";
 							}	
-							Print "</table><br/>";
+							Print "</table>";
 					}
 					else{
 						echo "Empty result";
@@ -174,9 +171,9 @@
 				
 				
 				<form method="post" action="bidChecker.php" class = "flightSearchForm">
-					<input id="DepartureInfo" type="text" name="DepartureInfo" readonly />
-					Bid:<input id="bidAmount" type="text" name="bidAmount" />
-					<input id="hiddenAmount" type="hidden" name="hiddenAmount" />
+					<input id="DepartureInfo" type="text" name="DepartureInfo">
+					Bid:<input id="bidAmount" type="text" name="bidAmount">
+					<input id="hiddenAmount" type="hidden" name="hiddenAmount">
 					<input id = "searchButton" type="submit" value="Bid">
 				</form>
 			</div>
