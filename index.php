@@ -85,10 +85,9 @@
 							<li class="divider"></li>
 							<li><a href="pages/auctions.html">Auctions</a></li>
 							<li class="divider"></li>
-							<li><a href="index.html">Log Out</a></li>
-							<!--<li class="divider"></li>
-							<li><a href="#">One more separated link</a></li>
-							-->
+							<li><a href="pages/managerial.php">Manage</a></li>
+							<li class="divider"></li>
+							<li><a href="scripts/logout.php">Log Out</a></li>
 						</ul>
 					</li>
 				</ul>
