@@ -11,51 +11,50 @@
 		<script src="../scripts/js/bootstrap.js"></script>
 		<script src="../scripts/logoutTab.js"></script>
 		<script type="text/javascript">
-			function setFields(data)
+			function setInfos(data){
+				data = data.split("~");
+				
+				document.getElementById("vName").innerHTML=data[0]+" "+data[1];
+				document.getElementById("vAddr").innerHTML=data[2];
+				document.getElementById("vCity").innerHTML=data[3];
+				document.getElementById("vState").innerHTML=data[4];
+				document.getElementById("vZip").innerHTML=data[5];
+				document.getElementById("vCC").innerHTML=data[6];
+				document.getElementById("vEmail").innerHTML=data[7];
+			}
+			
+			function setTables(data)
 			{
 				data = data.split("~");
-				fields = document.getElementsByClassName("cProf");
-				for(i = 0; i < data.length; i++)
-					fields[i].value = data[i];
+				for(i = 1; i < data.length; i++)
+				{
+					cols = data[i].split("|");
+					if(new Date(cols[4])>=new Date())
+						table=document.getElementById("currResr");
+					else
+						table=document.getElementById("pastResr");
+					row=document.createElement("tr");
+					table.appendChild(row);
+					for(j = 0; j < cols.length; j++)
+					{
+						ele=document.createElement("td");
+						ele.innerHTML=cols[j];
+						row.appendChild(ele);
+					}
+				}
 			}
 		</script>
 		<?php
 			$con = null;
-			$user = $id = null;
-			$prevPage = "Home";
-			$rate = $fname = $lname = $addr = $city = $state = $zip = $email = $credit = null;
-			$fnameErr = $lnameErr = $addrErr = $cityErr = $stateErr = $zipErr = $emailErr = null;
-			
+			$user = $id = $accNo = null;
 			function startPage()
 			{
 				connectToDB();
 				setUserName();
 				setID();
-				if ($_SERVER["REQUEST_METHOD"] == "POST")
-					customize();
-				else
-					setDataFields();
-			}
-			
-			function setUserName()
-			{
-				global $user;
-				if(isset($_COOKIE["user"]))
-				{
-					$user = $_COOKIE["user"];
-					resetPage();
-				}
-				else
-					header("Location:login.php");
-			}
-			
-			function setID()
-			{
-				global $con, $id, $user;
-				$query = "select id from logins where username = '".$user."';";
-				$result = mysqli_query($con, $query);
-				$row = mysqli_fetch_array($result);
-				$id = $row['id'];
+				setAccNo();
+				getInfoFields();
+				getResvInfos();
 			}
 			
 			function connectToDB()
@@ -68,52 +67,60 @@
 				if (mysqli_connect_errno()) {
 				  echo "Failed to connect to MySQL: " . mysqli_connect_error();
 				}
-				
 			}
 			
-			function resetPage()
+			function setUserName()
 			{
 				global $user;
+				if(isset($_COOKIE["user"]))
+				{
+					$user = $_COOKIE["user"];
+					resetPage();
+				}
+				else
+					header("location:login.php");
+			}
+			
+			function setID()
+			{
+				global $con, $id, $user;
+				$query = "select id from logins where username = '".$user."';";
+				$result = mysqli_query($con, $query);
+				$row = mysqli_fetch_array($result);
+				$id = $row['id'];
+			}
+			
+			function setAccNo()
+			{
+				global $con, $id, $accNo;
+				$query = "select accountno from customer where id=".$id.";";
+				$result = mysqli_query($con, $query);
+				$row = mysqli_fetch_array($result);
+				$accNo = $row['accountno'];
+			}
+			
+			function getResvInfos()
+			{
+				global $accNo, $con;
+				$query = "SELECT resrno, airlineid, flightno, depairportid, deptime, arrairportid, arrtime, totalfare
+							FROM reservation
+								NATURAL JOIN includes
+								NATURAL JOIN leg
+							where accountno=".$accNo."
+							order by deptime;";
+				$result = mysqli_query($con, $query);
+				
+				$dataStr = "";
+				while($row = mysqli_fetch_array($result))
+				{
+					$dataStr .= "~".$row['resrno']."|".$row['airlineid']."|".$row['flightno']."|".$row['depairportid']."|".$row['deptime']."|".$row['arrairportid']."|".$row['arrtime']."|".$row['totalfare'];
+				}
 				echo("<script type='text/javascript'>
-						resetPage('".$user."');
+						setTables('".$dataStr."');
 					  </script>");
 			}
 			
-			function customize()
-			{
-				global $id;
-				//echo($user);
-				
-				if(!empty($_POST["fname"]))
-					runUpdates("person", "firstname", $_POST["fname"]);
-				if(!empty($_POST["lname"]))
-					runUpdates("person", "lastname", $_POST["lname"]);
-				if(!empty($_POST["addr"]))
-					runUpdates("person", "address", $_POST["addr"]);
-				if(!empty($_POST["city"]))
-					runUpdates("person", "city", $_POST["city"]);
-				if(!empty($_POST["state"]))
-					runUpdates("person", "state", $_POST["state"]);
-				if(!empty($_POST["zip"]))
-					runUpdates("person", "zipcode", $_POST["zip"]);
-				
-				if(!empty($_POST["cc"]))
-					runUpdates("customer", "creditcardno", $_POST["cc"]);
-				if(!empty($_POST["email"]))
-					runUpdates("customer", "email", $_POST["email"]);
-				if(!empty($_POST["rate"]))
-					runUpdates("customer", "rating", $_POST["rate"]);
-				header("location:viewProfile.php");
-			}
-			
-			function runUpdates($table, $attr, $value)
-			{
-				global $con, $id;
-				$query = "update ".$table." set ".$attr."='".$value."' where id=".$id.";";
-				mysqli_query($con, $query);
-			}
-			
-			function setDataFields()
+			function getInfoFields()
 			{
 				global $id, $con;
 				//gets all data from person table
@@ -138,9 +145,18 @@
 				$dataString .= "~".$cc."~".$email."~".$rating;
 				
 				echo("<script type='text/javascript'>
-						setFields(\"".$dataString."\");
+						setInfos(\"".$dataString."\");
 					  </script>");
 			}
+			
+			function resetPage()
+			{
+				global $user;
+				echo("<script type='text/javascript'>
+						resetPage('".$user."');
+					  </script>");
+			}
+			
 		?>
 	</head>
 
@@ -186,57 +202,69 @@
 			</div><!-- /.navbar-collapse -->
 		  </div><!-- /.container-fluid -->
 		</nav>
+		
 		<div id="header">
-			<h1 id="companyName">Customize Profile</h1>
+			<h1 id="companyName">View Profile</h1>
 		</div>
 		<br />
 		<div class = "searchAreaBorder">
 			<div class = "searchArea">
 				<div>
 					<div class = "container">
-						<form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
-							<label>First Name <input class="cProf" type="text" name="fname" value="<?php echo $fname; ?>" /></label>
-							<br />
-							<span class="error"><?php echo $fnameErr; ?></span>
-							<br />
-							<label>Last Name <input class="cProf" type="text" name="lname" value="<?php echo $lname; ?>" /></label>
-							<br />
-							<span class="error"><?php echo $lnameErr; ?></span>
-							<br />
-							<label>Address <input class="cProf" type="text" name="addr" value="<?php echo $addr; ?>" /></label>
-							<br />
-							<span class="error"><?php echo $addrErr; ?></span>
-							<br />
-							<label>City <input class="cProf" type="text" name="city" value="<?php echo $city; ?>" /></label>
-							<br />
-							<span class="error"><?php echo $cityErr; ?></span>
-							<br />
-							<label>State <input class="cProf" type="text" name="state" value="<?php echo $state; ?>" /></label>
-							<br />
-							<span class="error"><?php echo $stateErr;?></span>
-							<br />
-							<label>Zip Code <input class="cProf" type="number" name ="zip" value="<?php echo $zip; ?>" min="0" max="99999" /></label>
-							<br />
-							<span class="error"><?php echo $zipErr; ?></span>
-							<br />
-							<br />
-						<!-- FIELDS REQUIRED FOR CUSTOMER TABLE -->	
-							<label>Credit Card <input class="cProf" type="number" name="cc" value="<?php echo $credit; ?>" min="0" max="999999999999" /></label>
-							<br />
-							<label>Email <input class="cProf" type="email" name="email" value="<?php echo $email; ?>" /></label>
-							<br />
-							<label>Rating<input class="cProf" type="number" name="rate" value="<?php echo $rate; ?>" /></label>
-							<br />
-							
-							<input type="submit" value="Update">
-						</form>
+						<p> Name: <span id="vName">armpit invader</span></p>
+						<p> Address: <span id="vAddr">1234 Main Street</span>
+							<div id="addr">
+								<span id = "vCity"> idontcare</span>,
+								<span id = "vState"> ny </span>	
+								<span id = "vZip">54321</span> 
+							</div>
+						</p>
+						<p> Email: <span id="vEmail">bopit@gmail.com</span></p>
+						<p> Credit Card: <span id="vCC">123456789100</span></p>
+						<!-- ---------CURRENT RESERVATION----------- -->
+						<div class="reservations">
+							<table class="table" id="currResr">
+								<tr>
+									<td colspan="8" class="header">Current Reservations</td>
+								</tr>
+								<tr>
+									<td>Reservation Number</td>
+									<td>Airline</td>
+									<td>Flight Number</td>
+									<td>Departure Airport</td>
+									<td>Departure Time</td>
+									<td>Arrival Airport</td>
+									<td>Arrival Time</td>
+									<td>Price</td>
+								</tr>
+							</table>
+						</div>
+						<br />
+						<!-- --------PAST RESERVATIONS------------ -->
+						<div class="reservations">
+							<table class="table" id="pastResr">
+								<tr>
+									<td colspan="8" class="header">Previous Flights</td>
+								</tr>
+								<tr>
+									<td>Reservation Number</td>
+									<td>Airline</td>
+									<td>Flight Number</td>
+									<td>Departure Airport</td>
+									<td>Departure Time</td>
+									<td>Arrival Airport</td>
+									<td>Arrival Time</td>
+									<td>Price</td>
+								</tr>
+							</table>
+						</div>
+						<br />
 					</div>
 				</div>
 			</div>
 		</div>
 		<?php 
 			startPage();
-			setUsername();
 		?>
 	</body>
 </html>
