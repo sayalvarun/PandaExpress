@@ -3,60 +3,11 @@
 		<title> Welcome to Panda Express! </title>
 		<meta charset="utf-8">		
 		<link rel="stylesheet" type="text/css" href="styles/index.css">
-		<link rel="stylesheet" type="text/css" href="styles/login.css">
-		<!--<link rel="stylesheet" type="text/css" href="styles/search.css">-->
-		<!--<link rel="stylesheet" type="text/css" href="styles/logoutTab.css">-->
-		<link rel="stylesheet" type="text/css" href="styles/profile.css">
 		<link rel="stylesheet" type="text/css" href="styles/css/bootstrap.css">  
 		
 		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
 		<script src="scripts/js/bootstrap.js"></script>
 		<script src="scripts/logoutTab.js"></script>
-		<script type="text/javascript">
-			$(document).ready(function(){			
-				$("#viewTab").click(function(){
-					$.post("scripts/UserInfoQueries.php",
-					{
-						username:document.getElementById("user").innerHTML,
-					},
-					function(data,status){
-						data = data.split("~");
-						
-						document.getElementById("vName").innerHTML=data[0]+" "+data[1];
-						document.getElementById("vAddr").innerHTML=data[2];
-						document.getElementById("vCity").innerHTML=data[3];
-						document.getElementById("vState").innerHTML=data[4];
-						document.getElementById("vZip").innerHTML=data[5];
-						document.getElementById("vCC").innerHTML=data[6];
-						document.getElementById("vEmail").innerHTML=data[7];
-					});
-					
-					$.post("scripts/UserResrvQueries.php",
-					{
-						username:document.getElementById("user").innerHTML
-					},
-					function(data,status){
-						data = data.split("~");
-						for(i = 0; i < data.length; i++)
-						{
-							cols = data[i].split("|");
-							if(new Date(cols[4])>=new Date())
-								table=document.getElementById("currResr");
-							else
-								table=document.getElementById("pastResr");
-							row=document.createElement("tr");
-							table.appendChild(row);
-							for(j = 0; j < cols.length; j++)
-							{
-								ele=document.createElement("td");
-								ele.innerHTML=cols[j];
-								row.appendChild(ele);
-							}
-						}
-					});
-				});
-			});
-		</script>
 		<?php
 			$con = null;
 			$user = null;
@@ -128,10 +79,9 @@
 					<li class="dropdown" id="userDropdown">
 						<a href="#" class="dropdown-toggle" data-toggle="dropdown"><span id="user">-insert Username here-</span><b class="caret"></b></a>
 						<ul class="dropdown-menu">
-							<li><a id="viewTab" onclick="changePage('viewProf', 1)">View Profile</a></li>
+							<li><a href="pages/viewProfile.php">View Profile</a></li>
 							<li class="divider"></li>
-							<li><!--<a id="customizeTab" onclick="changePage('customize', 2)">-->
-								<a href="pages/customizeProfile.php">Customize Profile</a></li>
+							<li><a href="pages/customizeProfile.php">Customize Profile</a></li>
 							<li class="divider"></li>
 							<li><a href="pages/auctions.html">Auctions</a></li>
 							<li class="divider"></li>
@@ -173,59 +123,6 @@
 						
 						<input id = "searchButton" type="submit" value="Search">
 						</form>
-					</div>
-				</div>
-<!-- VIEW PROFILE STARTS HERE -->
-				<div id="viewProf">
-					<div class = "container">
-						<p> Name: <span id="vName">armpit invader</span></p>
-						<p> Address: <span id="vAddr">1234 Main Street</span>
-							<div id="addr">
-								<span id = "vCity"> idontcare</span>,
-								<span id = "vState"> ny </span>	
-								<span id = "vZip">54321</span> 
-							</div>
-						</p>
-						<p> Email: <span id="vEmail">bopit@gmail.com</span></p>
-						<p> Credit Card: <span id="vCC">123456789100</span></p>
-						<!-- ---------CURRENT RESERVATION----------- -->
-						<div class="reservations">
-							<table class="table" id="currResr">
-								<tr>
-									<td colspan="8" class="header">Current Reservations</td>
-								</tr>
-								<tr>
-									<td>Reservation Number</td>
-									<td>Airline</td>
-									<td>Flight Number</td>
-									<td>Departure Airport</td>
-									<td>Departure Time</td>
-									<td>Arrival Airport</td>
-									<td>Arrival Time</td>
-									<td>Price</td>
-								</tr>
-							</table>
-						</div>
-						<br />
-						<!-- --------PAST RESERVATIONS------------ -->
-						<div class="reservations">
-							<table class="table" id="pastResr">
-								<tr>
-									<td colspan="8" class="header">Previous Flights</td>
-								</tr>
-								<tr>
-									<td>Reservation Number</td>
-									<td>Airline</td>
-									<td>Flight Number</td>
-									<td>Departure Airport</td>
-									<td>Departure Time</td>
-									<td>Arrival Airport</td>
-									<td>Arrival Time</td>
-									<td>Price</td>
-								</tr>
-							</table>
-						</div>
-						<br />
 					</div>
 				</div>
 			</div>
