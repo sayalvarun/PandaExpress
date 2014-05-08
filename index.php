@@ -128,11 +128,8 @@
 						header("Location:pages/login.php");
 					else
 					{
-						$user = $_POST["username"];
-						$expire=time()+60*5;
-						setcookie("user", $user, $expire);
 						header("Location:index.php");
-						//resetPage();
+						resetPage();
 					}
 				}
 			}	
@@ -141,10 +138,7 @@
 			{
 				global $user;
 				echo("<script type='text/javascript'>
-						document.getElementById('loginButton').style.display='none';
-						document.getElementById('userDropdown').style.display='inline';
-						document.getElementById('cUser').value='".$user."';
-						document.getElementById('user').innerHTML=\"".$user."\";
+						resetPage('".$user."');
 					  </script>");
 			}
 			

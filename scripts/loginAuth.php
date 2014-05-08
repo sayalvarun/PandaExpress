@@ -23,7 +23,7 @@
 		{
 			$expire=time()+60;
 			$user = $_POST["username"];
-			setcookie("user", $user, $expire, ".localhost/PandaExpress/");
+			setcookie("user", $user, $expire, "/");
 			echo($user);
 			//print_r($_COOKIE);
 			//echo($_COOKIE["user"]);

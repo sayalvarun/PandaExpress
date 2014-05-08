@@ -23,3 +23,10 @@ function changePage(page, index)
 	document.getElementById("companyName").innerHTML=pages[index];
 	/*clickedUsername();*/
 }
+function resetPage(user)
+{
+	document.getElementById('loginButton').style.display='none';
+	document.getElementById('userDropdown').style.display='inline';
+	document.getElementById('cUser').value=user;
+	document.getElementById('user').innerHTML=user;
+}
