@@ -85,8 +85,6 @@
 					$user = $_COOKIE["user"];
 					resetPage();
 				}	
-				else
-					header("Location:login.php");
 			}
 			function resetPage()
 			{
