@@ -107,7 +107,7 @@
 					<div class = "searchElements">
 						<p>Search for flight:</p>
 						<form method="post" action="searchHandler.php" class = "flightSearchForm">
-							<input type="radio" name="flightType" value="OneWay">One Way
+							<input type="radio" name="flightType" value="OneWay" checked>One Way
 							<input type="radio" name="flightType" value="Roundtrip">Round Trip
 							<input type="radio" name="flightType" value="MultiCity">Multi City
 						</br>					
