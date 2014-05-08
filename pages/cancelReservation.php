@@ -3,58 +3,64 @@
 		<title> Welcome to Panda Express! </title>
 		<meta charset="utf-8">		
 		<link rel="stylesheet" type="text/css" href="../styles/index.css">
-		<link rel="stylesheet" type="text/css" href="../styles/login.css">
+		<link rel="stylesheet" type="text/css" href="../styles/css/bootstrap.css"> 
 		<link rel="stylesheet" type="text/css" href="../styles/profile.css">
-		<link rel="stylesheet" type="text/css" href="../styles/css/bootstrap.css">  
 		
 		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
 		<script src="../scripts/js/bootstrap.js"></script>
 		<script src="../scripts/logoutTab.js"></script>
-		<script type="text/javascript">
-			function setInfos(data){
-				data = data.split("~");
-				
-				document.getElementById("vName").innerHTML=data[0]+" "+data[1];
-				document.getElementById("vAddr").innerHTML=data[2];
-				document.getElementById("vCity").innerHTML=data[3];
-				document.getElementById("vState").innerHTML=data[4];
-				document.getElementById("vZip").innerHTML=data[5];
-				document.getElementById("vCC").innerHTML=data[6];
-				document.getElementById("vEmail").innerHTML=data[7];
-			}
-			
+		<script type="text/javascript">			
 			function setTables(data)
 			{
 				data = data.split("~");
 				for(i = 1; i < data.length; i++)
 				{
 					cols = data[i].split("|");
-					if(new Date(cols[4])>=new Date())
+					//if(new Date(cols[4])>=new Date())
+					//{
 						table=document.getElementById("currResr");
-					else
-						table=document.getElementById("pastResr");
-					row=document.createElement("tr");
-					table.appendChild(row);
-					for(j = 0; j < cols.length; j++)
-					{
-						ele=document.createElement("td");
-						ele.innerHTML=cols[j];
+						row=document.createElement("tr");
+						table.appendChild(row);
+						
+						ele = document.createElement("td");
 						row.appendChild(ele);
-					}
+						
+						check = document.createElement("input");
+						check.setAttribute("type", "checkbox");
+						check.setAttribute("name", "resrs[]");
+						check.setAttribute("value", cols[0]);
+						ele.appendChild(check);
+						for(j = 0; j < cols.length; j++)
+						{
+							ele=document.createElement("td");
+							ele.innerHTML=cols[j];
+							row.appendChild(ele);
+						}
+					//}
 				}
 			}
 		</script>
 		<?php
 			$con = null;
-			$user = $id = $accNo = null;
+			$user = $id = $accNo= null;
 			function startPage()
 			{
 				connectToDB();
 				setUserName();
 				setID();
 				setAccNo();
-				getInfoFields();
-				getResvInfos();
+				if ($_SERVER["REQUEST_METHOD"] == "POST")
+				{
+					if(!empty($_POST["resrs"]))
+					{
+						foreach($_POST["resrs"] as $resr) {
+							deleteRes($resr);
+						}
+					}
+					header("Location:cancelReservation.php");
+				}
+				else
+					getResvInfos();
 			}
 			
 			function connectToDB()
@@ -76,9 +82,17 @@
 				{
 					$user = $_COOKIE["user"];
 					resetPage();
-				}
+				}	
 				else
-					header("location:login.php");
+					header("location: login.php");
+			}
+			
+			function resetPage()
+			{
+				global $user;
+				echo("<script type='text/javascript'>
+						resetPage('".$user."');
+					  </script>");
 			}
 			
 			function setID()
@@ -109,54 +123,29 @@
 							where accountno=".$accNo."
 							order by deptime;";
 				$result = mysqli_query($con, $query);
-				
 				$dataStr = "";
 				while($row = mysqli_fetch_array($result))
 				{
 					$dataStr .= "~".$row['resrno']."|".$row['airlineid']."|".$row['flightno']."|".$row['depairportid']."|".$row['deptime']."|".$row['arrairportid']."|".$row['arrtime']."|".$row['totalfare'];
 				}
+				echo($dataStr);
 				echo("<script type='text/javascript'>
 						setTables('".$dataStr."');
 					  </script>");
 			}
 			
-			function getInfoFields()
+			function deleteRes($res)
 			{
-				global $id, $con;
-				//gets all data from person table
-				$query = "select * from person where id=".$id.";";
-				$result = mysqli_query($con, $query);
-				$row = mysqli_fetch_array($result);
-				$fname = $row['FirstName'];
-				$lname = $row['LastName'];
-				$addr = $row['Address'];
-				$city = $row['City'];
-				$state = $row['State'];
-				$zip = $row['ZipCode'];
-				$dataString = $fname."~".$lname."~".$addr."~".$city."~".$state."~".$zip;
+				global $con;
+				$query = "DELETE FROM Includes WHERE ResrNo = ".$res.";";
+				mysqli_query($con, $query);
 				
-				//gets all data from customer table
-				$query = "select * from customer where id=".$id.";";
-				$result = mysqli_query($con, $query);
-				$row = mysqli_fetch_array($result);
-				$cc = $row['CreditCardNo'];
-				$email = $row['Email'];
-				$rating = $row['Rating'];
-				$dataString .= "~".$cc."~".$email."~".$rating;
+				$query = "DELETE FROM ReservationPassenger WHERE ResrNo = ".$res.";";
+				mysqli_query($con, $query);
 				
-				echo("<script type='text/javascript'>
-						setInfos(\"".$dataString."\");
-					  </script>");
+				$query = "DELETE FROM Reservation WHERE ResrNo = ".$res.";";
+				mysqli_query($con, $query);
 			}
-			
-			function resetPage()
-			{
-				global $user;
-				echo("<script type='text/javascript'>
-						resetPage('".$user."');
-					  </script>");
-			}
-			
 		?>
 	</head>
 
@@ -175,14 +164,33 @@
 					<span class="icon-bar"></span>
 					<span class="icon-bar"></span>
 				</button>
-				<span id="logo" class="navbar-brand">PandaExpress</span>
+				<span id="logo" class="navbar-brand" onclick="changePage('index', 0);">PandaExpress</span>
 			</div>
 
 			<!-- Collect the nav links, forms, and other content for toggling -->
 			<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 				<ul class="nav navbar-nav">
 					<li><a href="../index.php">Book Flight</a></li>
+					<!--<li><a href="#">Link</a></li>
+					<li class="dropdown">
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown <b class="caret"></b></a>
+						<ul class="dropdown-menu">
+							<li><a href="#">Action</a></li>
+							<li><a href="#">Another action</a></li>
+							<li><a href="#">Something else here</a></li>
+							<li class="divider"></li>
+							<li><a href="#">Separated link</a></li>
+						</ul>
+					</li>
+				-->
 				</ul>
+				<!--<form class="navbar-form navbar-left" role="search">
+					<div class="form-group">
+						<input type="text" class="form-control" placeholder="Search">
+					</div>
+					<button type="submit" class="btn btn-default">Submit</button>
+				</form>
+				-->
 				<ul class="nav navbar-nav navbar-right">
 					<li><a href="#">Help</a></li>
 					<li id="loginButton"><a href="login.php">Login</a></li>
@@ -206,69 +214,38 @@
 			</div><!-- /.navbar-collapse -->
 		  </div><!-- /.container-fluid -->
 		</nav>
-		
 		<div id="header">
-			<h1 id="companyName">View Profile</h1>
+			<h1 id="companyName">Search Flights</h1>
 		</div>
 		<br />
 		<div class = "searchAreaBorder">
 			<div class = "searchArea">
-				<div>
-					<div class = "container">
-						<p> Name: <span id="vName">armpit invader</span></p>
-						<p> Address: <span id="vAddr">1234 Main Street</span>
-							<div id="addr">
-								<span id = "vCity"> idontcare</span>,
-								<span id = "vState"> ny </span>	
-								<span id = "vZip">54321</span> 
-							</div>
-						</p>
-						<p> Email: <span id="vEmail">bopit@gmail.com</span></p>
-						<p> Credit Card: <span id="vCC">123456789100</span></p>
-						<!-- ---------CURRENT RESERVATION----------- -->
-						<div class="reservations">
-							<table class="table" id="currResr">
-								<tr>
-									<td colspan="8" class="header">Current Reservations</td>
-								</tr>
-								<tr>
-									<td>Reservation Number</td>
-									<td>Airline</td>
-									<td>Flight Number</td>
-									<td>Departure Airport</td>
-									<td>Departure Time</td>
-									<td>Arrival Airport</td>
-									<td>Arrival Time</td>
-									<td>Price</td>
-								</tr>
-							</table>
-						</div>
-						<br />
-						<!-- --------PAST RESERVATIONS------------ -->
-						<div class="reservations">
-							<table class="table" id="pastResr">
-								<tr>
-									<td colspan="8" class="header">Previous Flights</td>
-								</tr>
-								<tr>
-									<td>Reservation Number</td>
-									<td>Airline</td>
-									<td>Flight Number</td>
-									<td>Departure Airport</td>
-									<td>Departure Time</td>
-									<td>Arrival Airport</td>
-									<td>Arrival Time</td>
-									<td>Price</td>
-								</tr>
-							</table>
-						</div>
-						<br />
-					</div>
+				<div class="reservations">
+					<form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
+						<table class="table" id = "currResr">
+							<tr>
+								<td colspan="9" class="header">Current Reservations</td>
+							</tr>
+							<tr>
+								<td>Delete</td>
+								<td>Reservation Number</td>
+								<td>Airline</td>
+								<td>Flight Number</td>
+								<td>Departure Airport</td>
+								<td>Departure Time</td>
+								<td>Arrival Airport</td>
+								<td>Arrival Time</td>
+								<td>Price</td>
+							</tr>
+						</table>
+						<input type="submit" value="delete" />
+					</form>
 				</div>
 			</div>
 		</div>
 		<?php 
 			startPage();
+			//setUsername();
 		?>
 	</body>
 </html>

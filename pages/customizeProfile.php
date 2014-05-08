@@ -159,7 +159,7 @@
 					<span class="icon-bar"></span>
 					<span class="icon-bar"></span>
 				</button>
-				<span id="logo" class="navbar-brand" onclick="changePage('index', 0);">PandaExpress</span>
+				<span id="logo" class="navbar-brand">PandaExpress</span>
 			</div>
 
 			<!-- Collect the nav links, forms, and other content for toggling -->
@@ -177,9 +177,13 @@
 							<li class="divider"></li>
 							<li><a href="customizeProfile.php">Customize Profile</a></li>
 							<li class="divider"></li>
-							<li><a href="pages/auctions.html">Auctions</a></li>
+							<li><a href="auctions.html">Auctions</a></li>
 							<li class="divider"></li>
-							<li><a href="index.html">Log Out</a></li>
+							<li><a href="cancelReservation.php">Cancel Reservation</a></li>
+							<li class="divider"></li>
+							<li><a href="managerial.php">Manage</a></li>
+							<li class="divider"></li>
+							<li><a href="../scripts/logout.php">Log Out</a></li>
 						</ul>
 					</li>
 				</ul>

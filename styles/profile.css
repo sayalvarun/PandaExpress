@@ -60,6 +60,8 @@ table, tr{
 table{
 	/*padding:2px;*/
 	border-radius:10px;
+	margin-left:auto;
+	margin-right:auto;
 }
 
 .header{

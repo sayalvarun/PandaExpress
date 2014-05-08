@@ -204,7 +204,7 @@
 				$price = $price + $price2;
 				
 				echo $openNumber;
-				
+				echo($thereInfo[0]."', ".$thereInfo[1]);
 				$cmd = "INSERT INTO Reservation VALUES (".$openNumber.", NOW(), 100, ".$price.", NULL, ".$accountNo.");";
 				$data = mysqli_query($con,$cmd);
 				$cmd = "INSERT INTO Includes VALUES (".$openNumber.", '".$thereInfo[0]."', ".$thereInfo[1].", 1, date(NOW()));"; 
