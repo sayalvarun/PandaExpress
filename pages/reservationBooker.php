@@ -3,6 +3,7 @@
 		<title>Panda Express!</title>
 		<link rel="stylesheet" type="text/css" href="../styles/reservationBooker.css">
 		<link rel="stylesheet" type="text/css" href="../styles/profile.css">
+		<link rel="stylesheet" type="text/css" href="../styles/index.css">
 		<link rel="stylesheet" type="text/css" href="../styles/css/bootstrap.css">  
 		
 		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
@@ -10,6 +11,33 @@
 		<script src="../scripts/logoutTab.js"></script>
 		<link rel="stylesheet" type="text/css" href="../styles/logoutTab.css">
 		
+		<?php
+			$con = null;
+			$user = null;
+			
+			function setUserName()
+			{
+				global $user;
+				if(isset($_COOKIE["user"]))
+				{
+					$user = $_COOKIE["user"];
+					resetPage();
+				}
+				else{
+					header("location: login.php");
+				}
+			}
+			function resetPage()
+			{
+				global $user;
+				echo("<script type='text/javascript'>
+						resetPage('".$user."');
+					  </script>");
+			}
+		?>
+	</head>
+
+	<body>
 	
 		<nav class="navbar navbar-default" role="navigation">
 		  <div class="container-fluid">
@@ -39,7 +67,7 @@
 							<li class="divider"></li>
 							<li><a href="customizeProfile.php">Customize Profile</a></li>
 							<li class="divider"></li>
-							<li><a href="auctions.html">Auctions</a></li>
+							<li><a href="auctions.php">Auctions</a></li>
 							<li class="divider"></li>
 							<li><a href="cancelReservation.php">Cancel Reservation</a></li>
 							<li class="divider"></li>
@@ -52,38 +80,11 @@
 			</div><!-- /.navbar-collapse -->
 		  </div><!-- /.container-fluid -->
 		</nav>
-		
-		<?php
-			$con = null;
-			$user = null;
-			
-			
-			global $user;
-			if(isset($_COOKIE["user"]))
-			{
-				$user = $_COOKIE["user"];
-				resetPage();
-			}
-			else{
-				header("location: login.php");
-			}
-			
-			function resetPage()
-			{
-				global $user;
-				echo("<script type='text/javascript'>
-						resetPage('".$user."');
-					  </script>");
-			}
-		?>
-	</head>
-
-	<body>
 		<div id="header">
-			<h1> Search Results: </h1>
+			<h1> Reservation Information </h1>
 		</div>
-		<div class = "orange">
-			<div class = "info">
+		<div class = "searchAreaBorder">
+			<div class = "searchArea">
 				<?php
 				if(isset($_POST["DepartureInfo"])){
 					$DepartString = $_POST["DepartureInfo"];
@@ -98,7 +99,7 @@
 					$paramArray = explode(",",$ParamString);
 				}
 				
-				echo "<h1>Heading There:</h1>";
+				echo "<h2>Heading There</h2>";
 				for($i=0; $i<count($paramArray); $i++){ //Confirmation formatting should be done here
 					echo $paramArray[$i];
 					echo " : ";
@@ -111,7 +112,7 @@
 				
 				
 				if(count($backInfo)>1){
-					echo "<h1>Heading Back:</h1>";
+					echo "<h2>Heading Back</h2>";
 					for($i=0; $i<count($paramArray); $i++){ //Confirmation formatting should be done here
 						echo $paramArray[$i];
 						echo " : ";
@@ -177,7 +178,7 @@
 				
 				
 				$price = (int) $thereInfo[7];
-				if(!empty($backInfo)){
+				if(!empty($backInfo) && $_POST["flightType"]=="Roundtrip"){
 					$price2 = $backInfo[7];
 				}
 				else{
@@ -185,18 +186,18 @@
 				}
 				$price = $price + $price2;
 				
-				echo $openNumber;
-				echo($thereInfo[0]."', ".$thereInfo[1]);
+				//echo $openNumber;
+				//echo($thereInfo[0]."', ".$thereInfo[1]);
 				$cmd = "INSERT INTO Reservation VALUES (".$openNumber.", NOW(), 100, ".$price.", NULL, ".$accountNo.");";
 				$data = mysqli_query($con,$cmd);
 				$cmd = "INSERT INTO Includes VALUES (".$openNumber.", '".$thereInfo[0]."', ".$thereInfo[1].", 1, date(NOW()));"; 
 				$data = mysqli_query($con,$cmd);
-				if(!empty($backInfo)){
+				if(!empty($backInfo) && $_POST["flightType"]=="Roundtrip"){
 					$cmd = "INSERT INTO Includes VALUES (".$openNumber.", '".$backInfo[0]."', ".$backInfo[1].", 1, date(NOW()));"; 
 					$data = mysqli_query($con,$cmd);
 				}
 				
-				echo "<h1>reservation successful!</h1>";
+				echo "<h2>Reservation successful.</h2>";
 				
 			
 				
@@ -211,7 +212,7 @@
 				
 				
 			</div>
-			
+			<?php setUserName(); ?>
 
 	</body>
 </html>

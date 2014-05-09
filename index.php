@@ -110,7 +110,6 @@
 						<form method="post" action="searchHandler.php" class = "flightSearchForm">
 							<input type="radio" name="flightType" value="OneWay" checked>One Way
 							<input type="radio" name="flightType" value="Roundtrip">Round Trip
-							<input type="radio" name="flightType" value="MultiCity">Multi City
 						</br>					
 						<br></br>
 						Flying From: <input type="text" name="Departure">

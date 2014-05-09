@@ -2,7 +2,6 @@
 	<head>
 		<title>Panda Express!</title>
 		<link rel="stylesheet" type="text/css" href="styles/searchHandler.css">
-		
 		<link rel="stylesheet" type="text/css" href="styles/index.css">
 		<link rel="stylesheet" type="text/css" href="styles/css/bootstrap.css">  
 		
@@ -10,68 +9,6 @@
 		<script src="scripts/js/bootstrap.js"></script>
 		<script src="scripts/logoutTab.js"></script>
 		<link rel="stylesheet" type="text/css" href="styles/logoutTab.css">
-		
-	
-		<nav class="navbar navbar-default" role="navigation">
-		  <div class="container-fluid">
-			<!-- Brand and toggle get grouped for better mobile display -->
-			<div class="navbar-header">
-				<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-					<span class="sr-only">Toggle navigation</span>
-					<span class="icon-bar"></span>
-					<span class="icon-bar"></span>
-					<span class="icon-bar"></span>
-				</button>
-				<span id="logo" class="navbar-brand">PandaExpress</span>
-			</div>
-
-			<!-- Collect the nav links, forms, and other content for toggling -->
-			<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-				<ul class="nav navbar-nav">
-					<li><a href="index.php">Book Flight</a></li>
-					<!--<li><a href="#">Link</a></li>
-					<li class="dropdown">
-						<a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown <b class="caret"></b></a>
-						<ul class="dropdown-menu">
-							<li><a href="#">Action</a></li>
-							<li><a href="#">Another action</a></li>
-							<li><a href="#">Something else here</a></li>
-							<li class="divider"></li>
-							<li><a href="#">Separated link</a></li>
-						</ul>
-					</li>
-				-->
-				</ul>
-				<!--<form class="navbar-form navbar-left" role="search">
-					<div class="form-group">
-						<input type="text" class="form-control" placeholder="Search">
-					</div>
-					<button type="submit" class="btn btn-default">Submit</button>
-				</form>
-				-->
-				<ul class="nav navbar-nav navbar-right">
-					<li><a href="#">Help</a></li>
-					<li id="loginButton"><a href="pages/login.php">Login</a></li>
-					<li class="dropdown" id="userDropdown">
-						<a href="#" class="dropdown-toggle" data-toggle="dropdown"><span id="user">-insert Username here-</span><b class="caret"></b></a>
-						<ul class="dropdown-menu">
-							<li><a href="pages/viewProfile.php">View Profile</a></li>
-							<li class="divider"></li>
-							<li><a href="pages/customizeProfile.php">Customize Profile</a></li>
-							<li class="divider"></li>
-							<li><a href="pages/auctions.html">Auctions</a></li>
-							<li class="divider"></li>
-							<li><a href="pages/cancelReservation.php">Cancel Reservation</a></li>
-							<li class="divider"></li>
-							<li><a href="pages/managerial.php">Manage</a></li>
-							<li class="divider"></li>
-							<li><a href="scripts/logout.php">Log Out</a></li>
-						</ul>
-					</li>
-				</ul>
-			</div><!-- /.navbar-collapse -->
-		  </div><!-- /.container-fluid -->
-		</nav>
 		
 		<?php
 		$con = null;
@@ -117,13 +54,72 @@
 	</head>
 
 	<body>
+		<nav class="navbar navbar-default" role="navigation">
+		  <div class="container-fluid">
+			<!-- Brand and toggle get grouped for better mobile display -->
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+					<span class="sr-only">Toggle navigation</span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>
+				<span id="logo" class="navbar-brand">PandaExpress</span>
+			</div>
 
+			<!-- Collect the nav links, forms, and other content for toggling -->
+			<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+				<ul class="nav navbar-nav">
+					<li><a href="index.php">Book Flight</a></li>
+					<!--<li><a href="#">Link</a></li>
+					<li class="dropdown">
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown <b class="caret"></b></a>
+						<ul class="dropdown-menu">
+							<li><a href="#">Action</a></li>
+							<li><a href="#">Another action</a></li>
+							<li><a href="#">Something else here</a></li>
+							<li class="divider"></li>
+							<li><a href="#">Separated link</a></li>
+						</ul>
+					</li>
+				-->
+				</ul>
+				<!--<form class="navbar-form navbar-left" role="search">
+					<div class="form-group">
+						<input type="text" class="form-control" placeholder="Search">
+					</div>
+					<button type="submit" class="btn btn-default">Submit</button>
+				</form>
+				-->
+				<ul class="nav navbar-nav navbar-right">
+					<li><a href="pages/help.php">Help</a></li>
+					<li id="loginButton"><a href="pages/login.php">Login</a></li>
+					<li class="dropdown" id="userDropdown">
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown"><span id="user">-insert Username here-</span><b class="caret"></b></a>
+						<ul class="dropdown-menu">
+							<li><a href="pages/viewProfile.php">View Profile</a></li>
+							<li class="divider"></li>
+							<li><a href="pages/customizeProfile.php">Customize Profile</a></li>
+							<li class="divider"></li>
+							<li><a href="pages/auctions.php">Auctions</a></li>
+							<li class="divider"></li>
+							<li><a href="pages/cancelReservation.php">Cancel Reservation</a></li>
+							<li class="divider"></li>
+							<li><a href="pages/managerial.php">Manage</a></li>
+							<li class="divider"></li>
+							<li><a href="scripts/logout.php">Log Out</a></li>
+						</ul>
+					</li>
+				</ul>
+			</div><!-- /.navbar-collapse -->
+		  </div><!-- /.container-fluid -->
+		</nav>
+		
 		<div id="header">
-			<h1> Search Results: </h1>
+			<h1 id="companyName"> Search Flights </h1>
 		</div>
-		<div class = "orange">
-			<div class = "info">
-				Results:
+		<div class = "searchAreaBorder">
+			<div class = "searchArea">
 				<?php
 		
 				if(isset($_POST["Departure"]) and !empty($_POST["Departure"])){
@@ -152,7 +148,7 @@
 			  		echo "Failed to connect to MySQL: " . mysqli_connect_error();
 				}
 				
-				echo "<h1>".$radioOut."</h1>";
+				echo "<h2>".$radioOut."</h2>";
 	
 				if($radioOut == "OneWay"){
 					$cmd = "select F.AirlineID, F.FlightNo, L.DepAirportID, L.ArrAirportID, L.DepTime, L.ArrTime , FA.Class, FA.Fare
@@ -204,11 +200,13 @@
 				function printResults($data, $parameters,$identifier){
 					
 					if(count($data)>0){
-							Print "<table class = 'phpTable'; border cellpadding=3>";
+							Print "<table class = 'table'; border cellpadding=3>
+									<tr><td class='header' colspan=8>Flights</td></tr>
+									<tr>";
 							foreach($parameters as &$value){					
-								Print "<th>".$value.":</th> ";
+								Print "<td>".$value."</td> ";
 							}
-	
+							Print "</tr>";
 							while($row = mysqli_fetch_array($data)) 
 							{
 								Print "<tr class = 'resultTableRow'; onclick='myFunction(this,\"".implode(",",$parameters)."\",\"".$identifier."\")'>";
@@ -232,6 +230,7 @@
 					<input id="DepartureInfo" type="hidden" name="DepartureInfo">
 					<input id="ArrivalInfo" type="hidden" name="ArrivalInfo">
 					<input id="Parameters" type="hidden" name="Parameters">
+					<input type="hidden" name="flightType" value="<?php echo($_POST["flightType"]); ?>" />
 					<input id = "searchButton" type="submit" value="Book">
 				</form>
 			</div>

@@ -2,6 +2,7 @@
 	<head>
 		<link rel="stylesheet" type="text/css" href="../styles/searchHandler.css">
 		<link rel="stylesheet" type="text/css" href="../styles/profile.css">
+		<link rel="stylesheet" type="text/css" href="../styles/index.css">
 		<link rel="stylesheet" type="text/css" href="../styles/css/bootstrap.css">  
 		
 		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
@@ -92,11 +93,10 @@
 		</nav>
 		
 		<div id="header">
-			<h1> Search Results: </h1>
+			<h1 id="companyName">Auction Search</h1>
 		</div>
-		<div class = "orange">
-			<div class = "info">
-				Results:
+		<div class = "searchAreaBorder">
+			<div class = "searchArea">
 				<?php
 					if(isset($_POST["auctionSearch"]) and !empty($_POST["auctionSearch"])){
 						$searchDest = $_POST["auctionSearch"];
@@ -144,11 +144,12 @@
 				function printResults($data, $parameters,$hiddenFare){
 					
 					if(count($data)>0){
-							Print "<table class = 'phpTable'; border cellpadding=3>";
+							Print "<table class = 'table'; border cellpadding=3>
+									<tr><td class='header' colspan='7'>Search Results</tr>";
 							foreach($parameters as &$value){					
-								Print "<th>".$value.":</th> ";
+								Print "<td>".$value."</td> ";
 							}
-	
+							Print "</tr>";
 							while($row = mysqli_fetch_array($data)) 
 							{
 								Print "<tr class = 'resultTableRow'; onclick='myFunction(this,\"".implode(",",$parameters)."\",\"".$hiddenFare."\")'>";
@@ -171,10 +172,10 @@
 				
 				
 				<form method="post" action="bidChecker.php" class = "flightSearchForm">
-					<input id="DepartureInfo" type="text" name="DepartureInfo">
-					Bid:<input id="bidAmount" type="text" name="bidAmount">
-					<input id="hiddenAmount" type="hidden" name="hiddenAmount">
-					<input id = "searchButton" type="submit" value="Bid">
+					<input id="DepartureInfo" type="text" name="DepartureInfo" readonly />
+					Bid:<input id="bidAmount" type="text" name="bidAmount" />
+					<input id="hiddenAmount" type="hidden" name="hiddenAmount" />
+					<input id = "searchButton" type="submit" value="Bid" />
 				</form>
 			</div>
 			

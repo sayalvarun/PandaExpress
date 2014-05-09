@@ -1,4 +1,6 @@
-<link rel="stylesheet" type="text/css" href="../styles/reservationBooker.css">
+<html>
+	<head>	
+		<link rel="stylesheet" type="text/css" href="../styles/reservationBooker.css">
 		<link rel="stylesheet" type="text/css" href="../styles/profile.css">
 		<link rel="stylesheet" type="text/css" href="../styles/index.css">
 		<link rel="stylesheet" type="text/css" href="../styles/css/bootstrap.css">  
@@ -60,7 +62,7 @@
 							<li class="divider"></li>
 							<li><a href="customizeProfile.php">Customize Profile</a></li>
 							<li class="divider"></li>
-							<li><a href="auctions.html">Auctions</a></li>
+							<li><a href="auctions.php">Auctions</a></li>
 							<li class="divider"></li>
 							<li><a href="cancelReservation.php">Cancel Reservation</a></li>
 							<li class="divider"></li>
