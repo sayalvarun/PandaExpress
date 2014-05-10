@@ -175,13 +175,13 @@
 					<span class="icon-bar"></span>
 					<span class="icon-bar"></span>
 				</button>
-				<span id="logo" class="navbar-brand">PandaExpress</span>
+				<a id="logo" class="navbar-brand" href="../index.php">PandaExpress</a>
 			</div>
 
 			<!-- Collect the nav links, forms, and other content for toggling -->
 			<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 				<ul class="nav navbar-nav">
-					<li><a href="../index.php">Book Flight</a></li>
+					<li><a href="search.php">Book Flight</a></li>
 				</ul>
 				<ul class="nav navbar-nav navbar-right">
 					<li><a href="help.php">Help</a></li>

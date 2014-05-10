@@ -1,15 +1,13 @@
 <html>
-	<head>	
-		<link rel="stylesheet" type="text/css" href="../styles/reservationBooker.css">
-		<link rel="stylesheet" type="text/css" href="../styles/profile.css">
+	<head lang="en">
+		<title> Welcome to Panda Express! </title>
+		<meta charset="utf-8">		
 		<link rel="stylesheet" type="text/css" href="../styles/index.css">
 		<link rel="stylesheet" type="text/css" href="../styles/css/bootstrap.css">  
 		
 		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
 		<script src="../scripts/js/bootstrap.js"></script>
 		<script src="../scripts/logoutTab.js"></script>
-		<link rel="stylesheet" type="text/css" href="../styles/logoutTab.css">
-		
 		<?php
 			$con = null;
 			$user = null;
@@ -34,6 +32,10 @@
 	</head>
 
 	<body>
+		<!--<div class= "topBar">
+		</div>
+		<br />
+		-->
 		<nav class="navbar navbar-default" role="navigation">
 		  <div class="container-fluid">
 			<!-- Brand and toggle get grouped for better mobile display -->
@@ -75,34 +77,50 @@
 			</div><!-- /.navbar-collapse -->
 		  </div><!-- /.container-fluid -->
 		</nav>
-		
 		<div id="header">
-			<h1 id="companyName"> FAQ </h1>
+			<h1 id="companyName">Search Flights</h1>
 		</div>
+		<br />
 		<div class = "searchAreaBorder">
-			<div class = "searchArea">		
-					<h2>What is a reverse auction?</h2>
-						<p> A reverse auction is a different way of reserving flights! It allows the customer to 'Name Your Own Price' 
-						allowing users to bid an amount they are willing to pay for a flight. If you bid higher than the hidden fee
-						for a flight (the cheapest price allowable for a ticket), it is yours!</p>
+			<div class = "searchArea">
+<!--INDEX PAGE STUFFS STARTS HERE-->
+				<div id = "index">
+		<!-- FLIGHT SEARCH BOX -->
+					<div class = "searchElements">
+						<p>Search for flight:</p>
+						<form method="post" action="searchHandler.php" class = "flightSearchForm">
+							<input type="radio" name="flightType" value="OneWay" checked>One Way
+							<input type="radio" name="flightType" value="Roundtrip">Round Trip
+						</br>					
+						<br></br>
+						Flying From: <input type="text" name="Departure">
+						Flying To: <input type="text" name="Arrival"><br>
+						<br></br>
+						Departure Date: <input type="date" name="depDate" id="date" value="" />
+						Arrival Date: <input type="date" name="arrDate" id="date" value="" />
+						<br></br>
+						Tickets: <input type="number" name="quantity" min="1" max="20" value = "1">
+						<br></br>
 						
-				<h2>Do I need a credit card on file to purchase tickets?</h2>
-						<p> We do require customers list they're preferred credit card before purchasing their ticket. This facilitates
-							quicker reservation processing and allows us to better serve the customer.</p>
-							
-				<h2>Do I need a credit card on file to create an account?</h2>
-						<p> We do require customers list they're preferred credit card before purchasing their ticket. This facilitates
-							quicker reservation processing and allows us to better serve the customer.</p>
-				<h2>How can I see the list of flights I've been on?</h2>
-						<p>Clicking on your username will show a drop down menu. Click on "View Profile". This will show a table of listing
-						all your previous reservations and a table listing all of your current reservations.</p>
-				<h2>The email address  you have on file is wrong so I'm not getting any promotional deals. How do I fix this?</h2>
-						<p>Clicking on your username will show a drop down menu. Click on "Customize Profile". This will allow you to change
-						your email address as well as other personal informations.</p>
-				<h2>Your FAQ didn't answer any of my questions. Who should I contact?</h2>
-						<p>Call our hotline at 1-(631)-PANDA-EX for more direct help.</p> 
+						<input id = "searchButton" type="submit" value="Search">
+						</form>
+					</div>
+				</div>
 			</div>
-		</div>	
-		<?php setUserName(); ?>
+		</div>
+<!--
+			<br></br><br></br><br></br><br></br><br></br><br></br>
+			<br></br><br></br><br></br><br></br><br></br><br></br>
+			<br></br><br></br><br></br><br></br><br></br><br></br>
+			<br></br><br></br><br></br><br></br><br></br><br></br>
+		
+			<div id="navBar">
+				<p> This will be the navigation area</p>
+			</div>
+		-->
+		<?php 
+			//startPage();
+			setUsername();
+		?>
 	</body>
 </html>
